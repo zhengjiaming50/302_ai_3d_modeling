@@ -1,0 +1,194 @@
+{
+  "auth": {
+    "description": "创建者开启了验证，请在下方填入分享码",
+    "form": {
+      "confirm_button": "确认",
+      "confirm_button_loading": "验证中",
+      "input_code": "请输入分享码",
+      "remember_code": "记住分享码"
+    },
+    "title": "需要分享码"
+  },
+  "global": {
+    "error": {
+      "code_invalid": "分享码错误, 更多请访问 302.AI",
+      "copy_failed": "复制失败",
+      "network_error": "网络服务错误, 请查看网络状态或稍后再试!",
+      "not_found": "页面不存在",
+      "tool_deleted": "该工具已删除, 更多请访问 <site>302.AI</site>",
+      "tool_disabled": "该工具已禁用, 更多请访问 <site>302.AI</site>",
+      "unknown_error": "发生未知错误, 请联系客服"
+    },
+    "footer": {
+      "copyright_content": "本项目由<logo></logo>驱动",
+      "copyright_leading": "内容由AI生成，仅供参考"
+    },
+    "header": {
+      "language_switcher": {
+        "switch_language": "切换语言"
+      },
+      "theme_switcher": {
+        "dark": "暗色模式",
+        "light": "亮色模式",
+        "system": "跟随系统",
+        "toggle_theme": "切换主题"
+      },
+      "tool_info": {
+        "description": "当前工具相关信息",
+        "title": "关于",
+        "trigger": {
+          "label": "打开/关闭工具信息弹窗"
+        }
+      }
+    }
+  },
+  "home": {
+    "dialog": {
+      "image_generation_record": {
+        "button_label": "历史生成记录",
+        "download_status": {
+          "error": "下载失败",
+          "loading": "下载中...",
+          "success": "下载完成"
+        },
+        "no_records": "暂无生成记录",
+        "title": "历史生成图片"
+      },
+      "modeling_generation_record": {
+        "button_label": "历史生成记录",
+        "download_status": {
+          "error": "下载失败",
+          "loading": "下载中...",
+          "success": "下载完成"
+        },
+        "no_records": "暂无生成记录",
+        "title": "历史生成3D模型"
+      }
+    },
+    "header": {
+      "title": "AI 3D建模"
+    },
+    "step": {
+      "image_setting": "设置图片",
+      "model_generation": "模型生成"
+    },
+    "label": {
+      "image": "设置图片",
+      "image_setting": "设置图片",
+      "model": "AI建模",
+      "model_generation": "模型生成",
+      "next": "下一步",
+      "previous": "上一步",
+      "unsupportedWindowSize": "该应用不支持当前的分辨率"
+    },
+    "panel": {
+      "image_setting_panel": {
+        "image_generator": {
+          "errors": {
+            "imagePrompt": "图片描述不能为空"
+          },
+          "generate_button": {
+            "generating": "生成中...",
+            "idle": "生成图片"
+          },
+          "label": "生成图片描述",
+          "placeholder": "在此输入您希望生成的用于3D建模的物品描述",
+          "toast": {
+            "failed": "生成图片失败，请稍后再试",
+            "generating": "正在生成图片...",
+            "success": "生成图片成功"
+          }
+        },
+        "image_preview": {
+          "download_status": {
+            "error": "下载失败",
+            "loading": "下载中...",
+            "success": "下载完成"
+          },
+          "label": "图片预览",
+          "placeholder": "生成图片的结果将会呈现在这里"
+        },
+        "image_sample_list": {
+          "label": "示例图片"
+        },
+        "image_setting_tab": {
+          "label": "上传图片"
+        },
+        "image_uploader": {
+          "download_status": {
+            "error": "下载失败",
+            "loading": "下载中...",
+            "success": "下载完成"
+          },
+          "error": {
+            "file_too_large": "上传的图片文件过大",
+            "invalid_file_type": "上传的文件类型错误，不支持当前类型文件",
+            "upload_failed": "上传失败，请稍后再试"
+          },
+          "label": "上传图片",
+          "placeholder_1": "点击上传一张图片（支持.png、.jpeg、.webq、.svg等图片格式）",
+          "placeholder_2": "或在下方输入框输入您想要的物体描述，",
+          "placeholder_3": "直接生成一张适合3D建模的图片！"
+        },
+        "model_generation_tab": {
+          "label": "图片生成"
+        }
+      },
+      "modeling_generation_panel": {
+        "modeling_generator": {
+          "errors": {
+            "modelingFormat": "模型类型不正确",
+            "modelingModel": "模型选择不正确",
+            "modelingQuality": "模型质量不正确",
+            "modelingTier": "建模风格不正确",
+            "useHyper": "是否要生成高精度结构3D建模不正确"
+          },
+          "extra_settings": {
+            "format": {
+              "label": "生成3D建模类型"
+            },
+            "quality": {
+              "label": "生成3D建模质量",
+              "options": {
+                "extra-low": "extra-low(4k面)",
+                "high": "high(50k面)",
+                "low": "low(8k面)",
+                "medium": "medium(18k面)"
+              }
+            },
+            "tier": {
+              "label": "建模风格",
+              "options": {
+                "Regular": "Regular(高质量自定义)",
+                "Sketch": "Sketch(快速基本)"
+              }
+            },
+            "use_hyper": {
+              "label": "是否要生成高精度结构3D建模"
+            }
+          },
+          "generate_button": {
+            "generating": "建模中...",
+            "idle": "开始建模"
+          },
+          "label": "选择模型",
+          "toast": {
+            "failed": "3D建模失败，请稍后再试",
+            "generating": "正在进行3D建模...",
+            "success": "3D建模成功"
+          }
+        },
+        "modeling_preview": {
+          "download_status": {
+            "error": "下载失败",
+            "loading": "下载中...",
+            "success": "下载完成"
+          },
+          "label": "AI建模",
+          "placeholder": "生成3D模型的结果将会呈现在这里",
+          "unsupported_webgl": "当前系统可能不支持WebGL，无法展示3D模型"
+        }
+      }
+    }
+  }
+}

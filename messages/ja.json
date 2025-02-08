@@ -1,0 +1,196 @@
+{
+  "auth": {
+    "description": "作成者は認証を有効にしています。以下の共有コードを入力してください",
+    "form": {
+      "confirm_button": "確認",
+      "confirm_button_loading": "検証中",
+      "input_code": "共有コードを入力してください",
+      "remember_code": "共有コードを記憶する"
+    },
+    "title": "コードを共有する必要がある"
+  },
+  "global": {
+    "error": {
+      "code_invalid": "共有コードが無効です。詳細は302.AIをご覧ください",
+      "copy_failed": "コピーに失敗しました",
+      "network_error": "ネットワークサービスエラー。ネットワーク状態を確認するか、後ほど再試行してください",
+      "not_found": "ページが存在しません",
+      "tool_deleted": "このツールは削除されました。詳細については、<site>302.AI</site> にアクセスしてください。",
+      "tool_disabled": "このツールは無効になっています。詳細については、<site>302.AI</site> にアクセスしてください。",
+      "unknown_error": "不明なエラーが発生しました。サポートにお問い合わせください"
+    },
+    "footer": {
+      "copyright_content": "<logo></logo>による提供",
+      "copyright_leading": "AI生成のコンテンツであり、参考用です"
+    },
+    "header": {
+      "language_switcher": {
+        "switch_language": "言語を切り替える"
+      },
+      "theme_switcher": {
+        "dark": "ダークモード",
+        "light": "ライトモード",
+        "system": "システムデフォルト",
+        "toggle_theme": "テーマを切り替える"
+      },
+      "tool_info": {
+        "description": "現在のツールに関する情報",
+        "title": "について",
+        "trigger": {
+          "label": "ツール情報ポップアップを開く/閉じる"
+        }
+      }
+    }
+  },
+  "home": {
+    "dialog": {
+      "image_generation_record": {
+        "button_label": "歴史的な世代記録",
+        "download_status": {
+          "error": "失敗をダウンロードします",
+          "loading": "ダウンロード中...",
+          "success": "ダウンロード完了"
+        },
+        "no_records": "世代の記録はありません",
+        "title": "歴史的に生成された画像"
+      },
+      "modeling_generation_record": {
+        "button_label": "歴史生成記録",
+        "download_status": {
+          "error": "ダウンロードに失敗しました",
+          "loading": "ダウンロード中...",
+          "success": "ダウンロード完了"
+        },
+        "title": "過去に生成された 3D モデル"
+      }
+    },
+    "header": {
+      "title": "AI 3D モデリング"
+    },
+    "step": {
+      "image_setting": "画像設定",
+      "model_generation": "モデル生成"
+    },
+    "label": {
+      "image": "画像設定",
+      "image_setting": "画像設定",
+      "model": "AIモデリング",
+      "model_generation": "モデル生成",
+      "next": "次のステップ",
+      "previous": "前の",
+      "unsupportedWindowSize": "このアプリケーションは、現在の解像度をサポートしていません"
+    },
+    "panel": {
+      "image_setting_panel": {
+        "image_generator": {
+          "errors": {
+            "imagePrompt": "画像の説明は必須です"
+          },
+          "generate_button": {
+            "generating": "生成中...",
+            "idle": "画像の生成"
+          },
+          "label": "画像の説明を生成する",
+          "placeholder": "3D モデリング用に生成するアイテムの説明をここに入力します",
+          "toast": {
+            "failed": "画像の生成に失敗しました。後でもう一度お試しください",
+            "generating": "画像を生成中...",
+            "success": "画像が正常に生成されました"
+          }
+        },
+        "image_preview": {
+          "download_status": {
+            "error": "失敗をダウンロードします",
+            "loading": "ダウンロード中...",
+            "success": "ダウンロード完了"
+          },
+          "label": "画像プレビュー",
+          "placeholder": "画像生成の結果はここで提示されます"
+        },
+        "image_sample_list": {
+          "label": "サンプル画像"
+        },
+        "image_setting_tab": {
+          "label": "画像アップロード"
+        },
+        "image_uploader": {
+          "download_status": {
+            "error": "失敗をダウンロードします",
+            "loading": "ダウンロード中...",
+            "success": "ダウンロード完了"
+          },
+          "error": {
+            "file_too_large": "アップロードされた画像ファイルが大きすぎます",
+            "invalid_file_type": "アップロードされたファイルタイプが正しくありません、現在のタイプのファイルはサポートされていません",
+            "upload_failed": "アップロードに失敗しました。後でもう一度お試しください"
+          },
+          "label": "画像アップロード",
+          "placeholder_1": "クリックして画像をアップロードします（.png、.jpeg、.webq、.svgなどの画像形式をサポートします）",
+          "placeholder_2": "または、下の入力ボックスにオブジェクトの説明を入力します。",
+          "placeholder_3": "3Dモデリングに適した画像を直接生成！"
+        },
+        "model_generation_tab": {
+          "label": "画像生成"
+        }
+      },
+      "modeling_generation_panel": {
+        "modeling_generator": {
+          "errors": {
+            "modelingFormat": "モデルタイプが正しくありません",
+            "modelingModel": "モデル選択が正しくありません",
+            "modelingQuality": "モデル品質が正しくありません",
+            "modelingTier": "モデリングスタイルが正しくありません",
+            "useHyper": "高精度構造3Dモデリングを生成するかどうかが正しくありません"
+          },
+          "extra_settings": {
+            "format": {
+              "label": "3D モデリング タイプを生成する"
+            },
+            "material": {
+              "label": "3Dモデリングタイプを生成します"
+            },
+            "quality": {
+              "label": "3Dモデリング品質を生成します",
+              "options": {
+                "extra-low": "extra-low (4kめん)",
+                "high": "high (50kめん)",
+                "low": "low (8kめん)",
+                "medium": "medium (18kめん)"
+              }
+            },
+            "tier": {
+              "label": "モデリングスタイル",
+              "options": {
+                "Regular": "通常（高品質のカスタム）",
+                "Sketch": "スケッチ（高速ベーシック）"
+              }
+            },
+            "use_hyper": {
+              "label": "高精度構造3Dモデリングを生成するかどうか"
+            }
+          },
+          "generate_button": {
+            "generating": "建模中...",
+            "idle": "開始建模"
+          },
+          "label": "モデルを選択します",
+          "toast": {
+            "failed": "3Dモデリングの生成に失敗すると、後でもう一度お試しください",
+            "generating": "3Dモデリングを生成しています...",
+            "success": "3Dモデリングが正常に生成されました"
+          }
+        },
+        "modeling_preview": {
+          "download_status": {
+            "error": "失敗をダウンロードします",
+            "loading": "ダウンロード中...",
+            "success": "ダウンロード完了"
+          },
+          "label": "AIモデリング",
+          "placeholder": "3Dモデルを生成した結果は、ここで提示されます",
+          "unsupported_webgl": "現在のシステムはWebGLをサポートしておらず、3Dモデルを表示できません"
+        }
+      }
+    }
+  }
+}
