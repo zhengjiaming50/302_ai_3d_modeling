@@ -4,7 +4,12 @@ import { createJSONStorage, atomWithStorage } from "jotai/utils";
 const STORAGE_KEY = "app.model.viewer.state";
 
 export type SupportedFileTypes = "glb" | "obj" | "stl";
-export type SupportedModelingModel = "Trellis" | "Tripo3D" | "Hyper3D";
+export type SupportedModelingModel =
+  | "Trellis"
+  | "Tripo3D"
+  | "Hyper3D"
+  | "StableFast3D"
+  | "StablePoint3D";
 
 interface ModelViewerStore {
   key: number;

@@ -26,6 +26,8 @@ export function ModelingForm() {
     handleGenerateTrellisModel,
     handleGenerateHyper3DModel,
     handleGenerateTripo3DModel,
+    handleGenerateStableFast3DModel,
+    handleGenerateStablePoint3DModel,
 
     isGenerating,
   } = useModelingForm();
@@ -48,10 +50,17 @@ export function ModelingForm() {
       case "Hyper3D":
         await handleGenerateHyper3DModel();
         break;
+      case "StableFast3D":
+        await handleGenerateStableFast3DModel();
+        break;
+      case "StablePoint3D":
+        await handleGenerateStablePoint3DModel();
+        break;
       default:
         setError("modelingModel", {
           message: t("errors.modelingModel"),
         });
+
         break;
     }
   };

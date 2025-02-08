@@ -1,4 +1,4 @@
-import AppAuth from "@/components/global/app-auth";
+// import AppAuth from "@/components/global/app-auth";
 import AppChat from "@/components/global/app-chat";
 import { AppClickMonitor } from "@/components/global/app-click-monitor";
 import AppClient from "@/components/global/app-client";
@@ -114,7 +114,7 @@ export default async function RootLayout({
                   </SWRConfig>
                   <AppFooter />
                 </AppTooltip>
-                <AppAuth />
+                {/* <AppAuth /> */}
                 <AppChat />
                 <AppClickMonitor />
               </AppClient>

@@ -13,6 +13,8 @@ import { useForm } from "react-hook-form";
 import { useHyper3DPolling } from "@/hooks/api/use-hyper3d-polling";
 import { useTripo3DPolling } from "@/hooks/api/use-tripo3d-polling";
 import { useTrellisAsync } from "@/hooks/api/use-trellis-async";
+import { useStableFast3DAsync } from "../api/use-stable-fast-3d-async";
+import { useStablePoint3DAsync } from "../api/use-stable-point-3d-async";
 
 export const logger = createScopedLogger("useModelingForm");
 
@@ -108,8 +110,21 @@ export function useModelingForm() {
     useHyper3DPolling({ getValues, validateForm });
   const { isPolling: isTripo3DGenerating, handleGenerateTripo3DModel } =
     useTripo3DPolling({ getValues, validateForm });
+  const {
+    isGenerating: isStableFast3DGenerating,
+    handleGenerateStableFast3DModel,
+  } = useStableFast3DAsync({ getValues, validateForm });
+  const {
+    isGenerating: isStablePoint3DGenerating,
+    handleGenerateStablePoint3DModel,
+  } = useStablePoint3DAsync({ getValues, validateForm });
+
   const isGenerating =
-    isHyper3DGenerating || isTripo3DGenerating || isTrellisGenerating;
+    isHyper3DGenerating ||
+    isTripo3DGenerating ||
+    isTrellisGenerating ||
+    isStableFast3DGenerating ||
+    isStablePoint3DGenerating;
 
   return {
     watch,
@@ -122,6 +137,8 @@ export function useModelingForm() {
     handleGenerateTrellisModel,
     handleGenerateHyper3DModel,
     handleGenerateTripo3DModel,
+    handleGenerateStableFast3DModel,
+    handleGenerateStablePoint3DModel,
 
     isGenerating,
   };

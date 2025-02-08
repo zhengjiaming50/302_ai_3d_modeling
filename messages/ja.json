@@ -67,10 +67,6 @@
     "header": {
       "title": "AI 3D モデリング"
     },
-    "step": {
-      "image_setting": "画像設定",
-      "model_generation": "モデル生成"
-    },
     "label": {
       "image": "画像設定",
       "image_setting": "画像設定",
@@ -186,11 +182,16 @@
             "loading": "ダウンロード中...",
             "success": "ダウンロード完了"
           },
+          "error": "現在のデバイスは、3Dモデルのプレビューモデルをサポートしていません。履歴レコードに直接ダウンロードしてください。",
           "label": "AIモデリング",
           "placeholder": "3Dモデルを生成した結果は、ここで提示されます",
           "unsupported_webgl": "現在のシステムはWebGLをサポートしておらず、3Dモデルを表示できません"
         }
       }
+    },
+    "step": {
+      "image_setting": "画像設定",
+      "model_generation": "モデル生成"
     }
   }
 }

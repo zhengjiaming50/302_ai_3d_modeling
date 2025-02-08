@@ -59,7 +59,7 @@ export function useModelingPolling<T>({
   const modelingStatus = currentModeling.status;
   const modelingFormat = currentModeling.modelingSettings.modelingFormat;
   const shouldStartPolling =
-    modelingModel !== "Trellis" &&
+    (modelingModel === "Hyper3D" || modelingModel === "Tripo3D") &&
     taskId !== "" &&
     modelingStatus === CurrentModelingStatus.PENDING;
   const hasTextures = modelingModel === "Hyper3D" && modelingFormat !== "glb";

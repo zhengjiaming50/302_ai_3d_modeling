@@ -68,10 +68,6 @@
     "header": {
       "title": "AI 3D建模"
     },
-    "step": {
-      "image_setting": "设置图片",
-      "model_generation": "模型生成"
-    },
     "label": {
       "image": "设置图片",
       "image_setting": "设置图片",
@@ -184,11 +180,16 @@
             "loading": "下载中...",
             "success": "下载完成"
           },
+          "error": "当前设备并不支持预览3D模型，请到历史记录中直接下载",
           "label": "AI建模",
           "placeholder": "生成3D模型的结果将会呈现在这里",
           "unsupported_webgl": "当前系统可能不支持WebGL，无法展示3D模型"
         }
       }
+    },
+    "step": {
+      "image_setting": "设置图片",
+      "model_generation": "模型生成"
     }
   }
 }

@@ -3,7 +3,7 @@
 import { ImageForm } from "@/components/forms/image";
 import { SampleImagesList } from "./sample-images-list";
 import { ImagePreview } from "./image-preview";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import {
   imageViewerStore,
   updateImageViewerStore,
@@ -33,11 +33,15 @@ export function ImageGenerator({ onGenerated }: ImageGeneratorProps) {
     [updateImageViewer, updateImageForm, onGenerated]
   );
 
+  useEffect(() => {
+    onGenerated(generatedImageUrl);
+  }, [generatedImageUrl, onGenerated]);
+
   return (
     <div className="flex w-full flex-col gap-y-6">
+      <ImageForm />
       <ImagePreview imageUrl={generatedImageUrl} />
       <SampleImagesList onSelected={handleSampleImageSelected} />
-      <ImageForm />
     </div>
   );
 }

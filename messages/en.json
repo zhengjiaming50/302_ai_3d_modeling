@@ -67,10 +67,6 @@
     "header": {
       "title": "AI 3D Modeling"
     },
-    "step": {
-      "image_setting": "Image Setting",
-      "model_generation": "Model Generation"
-    },
     "label": {
       "image": "Image Setting",
       "image_setting": "Picture Setting",
@@ -186,11 +182,16 @@
             "loading": "Downloading...",
             "success": "Download completed"
           },
+          "error": "The current device does not support previewing 3D models, please download them directly in the history record.",
           "label": "AI Modeling",
           "placeholder": "The results of generating 3D models will be presented here",
           "unsupported_webgl": "The current system may not support webgl, and cannot show 3D model"
         }
       }
+    },
+    "step": {
+      "image_setting": "Image Setting",
+      "model_generation": "Model Generation"
     }
   }
 }

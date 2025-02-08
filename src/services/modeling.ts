@@ -187,3 +187,44 @@ export async function getTripo3DModeling({
 }) {
   return await apiKy.get(apiUrl + `/${taskId}`).json<Tripo3DModelingResponse>();
 }
+
+const GET_STABLE_FAST_3D_API_URL = "sd/v2beta/3d/stable-fast-3d";
+
+export async function getStableFast3DModeling(imageFile: File) {
+  const formData = new FormData();
+  formData.append("image", imageFile);
+  formData.append("texture_resolution", "1024");
+  formData.append("foreground_ratio", "0.85");
+
+  const response = await apiKy
+    .post(GET_STABLE_FAST_3D_API_URL, {
+      body: formData,
+      headers: {
+        "Content-Type": undefined,
+      },
+    })
+    .blob();
+
+  return response;
+}
+
+const GET_STABLE_POINT_3D_API_URL = "sd/v2beta/3d/stable-point-aware-3d";
+
+export async function getStablePoint3DModeling(imageFile: File) {
+  const formData = new FormData();
+  formData.append("image", imageFile);
+  formData.append("texture_resolution", "1024");
+  formData.append("foreground_ratio", "1.3");
+  formData.append("target_count", "1000");
+  formData.append("guidance_scale", "3");
+  formData.append("seed", "0");
+
+  return await apiKy
+    .post(GET_STABLE_POINT_3D_API_URL, {
+      body: formData,
+      headers: {
+        "Content-Type": undefined,
+      },
+    })
+    .blob();
+}

@@ -12,6 +12,7 @@ import {
   SupportedFileTypes,
 } from "@/stores/slices/model_viewer_store";
 import { useIsMobile } from "@/hooks/global/use-mobile";
+import { useErrorBoundary } from "use-error-boundary";
 
 interface ModelRecordCardProps {
   imageUrl: string;
@@ -42,6 +43,7 @@ export function ModelRecordCard({
   const isMobile = useIsMobile();
 
   const [isHovered, setIsHovered] = useState(false);
+  const { ErrorBoundary, didCatch } = useErrorBoundary();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -54,6 +56,10 @@ export function ModelRecordCard({
       case "Tripo3D":
         return 7;
       case "Hyper3D":
+        return 1;
+      case "StableFast3D":
+        return 1;
+      case "StablePoint3D":
         return 1;
       default:
         return 1;
@@ -86,43 +92,47 @@ export function ModelRecordCard({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {showModel ? (
-          <Suspense
-            fallback={<Loader2 className="size-8 animate-spin text-primary" />}
-          >
-            <Canvas
-              ref={canvasRef}
+        {showModel && !didCatch ? (
+          <ErrorBoundary>
+            <Suspense
               fallback={
-                <img
-                  className="h-full w-full object-contain"
-                  src={imageUrl}
-                  alt="fallback"
-                />
+                <Loader2 className="size-8 animate-spin text-primary" />
               }
-              camera={{ position: [5, 5, 5], fov: 20 }}
             >
-              <ambientLight />
-              <directionalLight
-                position={[10, 10, 5]}
-                intensity={lightIntensity}
-              />
-              <directionalLight
-                position={[-10, -10, 5]}
-                intensity={lightIntensity}
-              />
-              <ModelContainer
-                modelUrl={modelUrl}
-                fileType={modelingFormat}
-                textures={textures}
-              />
-              <OrbitControls
-                enablePan={false}
-                enableZoom={false}
-                enableRotate={false}
-                autoRotate={true}
-              />
-            </Canvas>
-          </Suspense>
+              <Canvas
+                ref={canvasRef}
+                fallback={
+                  <img
+                    className="h-full w-full object-contain"
+                    src={imageUrl}
+                    alt="fallback"
+                  />
+                }
+                camera={{ position: [5, 5, 5], fov: 20 }}
+              >
+                <ambientLight />
+                <directionalLight
+                  position={[10, 10, 5]}
+                  intensity={lightIntensity}
+                />
+                <directionalLight
+                  position={[-10, -10, 5]}
+                  intensity={lightIntensity}
+                />
+                <ModelContainer
+                  modelUrl={modelUrl}
+                  fileType={modelingFormat}
+                  textures={textures}
+                />
+                <OrbitControls
+                  enablePan={false}
+                  enableZoom={false}
+                  enableRotate={false}
+                  autoRotate={true}
+                />
+              </Canvas>
+            </Suspense>
+          </ErrorBoundary>
         ) : (
           <img
             className="h-full w-full object-contain"

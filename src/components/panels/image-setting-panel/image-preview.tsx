@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useMonitorMessage } from "@/hooks/global/use-monitor-message";
 import { cn } from "@/lib/utils";
 import { updateImageViewerStore } from "@/stores/slices/image_viewer_store";
+import { updateModelingFormAtom } from "@/stores/slices/modeling_form_store";
 import { useSetAtom } from "jotai";
 import { useTranslations } from "next-intl";
 import { useCallback, useState } from "react";
@@ -20,6 +21,7 @@ export function ImagePreview({ imageUrl }: ImagePreviewProps) {
   const t = useTranslations("home.panel.image_setting_panel.image_preview");
 
   const updateImageViewer = useSetAtom(updateImageViewerStore);
+  const updateModelingForm = useSetAtom(updateModelingFormAtom);
 
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -44,7 +46,10 @@ export function ImagePreview({ imageUrl }: ImagePreviewProps) {
     updateImageViewer({
       generatedImageUrl: "",
     });
-  }, [updateImageViewer]);
+    updateModelingForm({
+      imageSrc: "",
+    });
+  }, [updateImageViewer, updateModelingForm]);
 
   return (
     <div className="flex flex-col gap-y-2">

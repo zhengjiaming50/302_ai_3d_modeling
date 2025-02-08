@@ -1,7 +1,7 @@
 "use client";
 
 import { useAtomValue, useSetAtom } from "jotai";
-import { Loader2, Package, Ban, Sun } from "lucide-react";
+import { Loader2, Package, Ban, Sun, CircleX } from "lucide-react";
 import { ModelContainer } from "./model-container";
 import {
   modelViewerStore,
@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { useMonitorMessage } from "@/hooks/global/use-monitor-message";
 import saveAs from "file-saver";
 import { Slider } from "@/components/ui/slider";
+import { useErrorBoundary } from "use-error-boundary";
 
 export function ThreeDViewer() {
   const t = useTranslations(
@@ -27,6 +28,7 @@ export function ThreeDViewer() {
   const controlsRef = useRef<any>(null);
 
   const { handleDownload: _handleDownload } = useMonitorMessage();
+  const { ErrorBoundary, didCatch } = useErrorBoundary();
 
   const currentModel = useAtomValue(modelViewerStore);
   const resetModelViewer = useSetAtom(resetModelViewerStore);
@@ -99,6 +101,12 @@ export function ThreeDViewer() {
       case "Hyper3D":
         setLightIntensity(1);
         break;
+      case "StableFast3D":
+        setLightIntensity(1);
+        break;
+      case "StablePoint3D":
+        setLightIntensity(1);
+        break;
       default:
         setLightIntensity(1);
     }
@@ -121,64 +129,77 @@ export function ThreeDViewer() {
         </div>
       ) : (
         <>
-          <Suspense
-            fallback={<Loader2 className="size-8 animate-spin text-primary" />}
-          >
-            <Canvas
-              fallback={
-                <div className="flex flex-col items-center justify-center space-y-2 text-sm text-muted-foreground">
-                  <Ban className="size-8" />
-                  <span>{t("unsupported_webgl")}</span>
-                </div>
-              }
-              camera={{ position: [5, 5, 5], fov: 20 }}
-              className={cn("cursor-grab", isFullscreen && "h-screen w-screen")}
-            >
-              <ambientLight />
-              <directionalLight
-                position={[10, 10, 5]}
-                intensity={lightIntensity}
-              />
-              <directionalLight
-                position={[-10, -10, 5]}
-                intensity={lightIntensity}
-              />
-              <ModelContainer
-                modelUrl={modelUrl}
-                fileType={fileType}
-                textures={textures}
-              />
-              <OrbitControls
-                ref={controlsRef}
-                enablePan={false}
-                enableZoom={true}
-                maxDistance={20.0}
-                minDistance={1.0}
-              />
-            </Canvas>
-          </Suspense>
+          {didCatch ? (
+            <div className="flex flex-col items-center justify-center space-y-2 text-sm text-muted-foreground">
+              <CircleX className="size-8" />
+              <span className="text-center">{t("error")}</span>
+            </div>
+          ) : (
+            <ErrorBoundary>
+              <Suspense
+                fallback={
+                  <Loader2 className="size-8 animate-spin text-primary" />
+                }
+              >
+                <Canvas
+                  fallback={
+                    <div className="flex flex-col items-center justify-center space-y-2 text-sm text-muted-foreground">
+                      <Ban className="size-8" />
+                      <span>{t("unsupported_webgl")}</span>
+                    </div>
+                  }
+                  camera={{ position: [5, 5, 5], fov: 20 }}
+                  className={cn(
+                    "cursor-grab",
+                    isFullscreen && "h-screen w-screen"
+                  )}
+                >
+                  <ambientLight />
+                  <directionalLight
+                    position={[10, 10, 5]}
+                    intensity={lightIntensity}
+                  />
+                  <directionalLight
+                    position={[-10, -10, 5]}
+                    intensity={lightIntensity}
+                  />
+                  <ModelContainer
+                    modelUrl={modelUrl}
+                    fileType={fileType}
+                    textures={textures}
+                  />
+                  <OrbitControls
+                    ref={controlsRef}
+                    enablePan={false}
+                    enableZoom={true}
+                    maxDistance={20.0}
+                    minDistance={1.0}
+                  />
+                </Canvas>
+              </Suspense>
 
-          <div className="absolute left-4 top-4 flex w-full flex-row items-center gap-2">
-            <Sun className="size-4 text-muted-foreground" />
-            <Slider
-              className="w-1/3"
-              min={1}
-              max={20}
-              step={0.1}
-              value={[lightIntensity]}
-              onValueChange={(value) => {
-                setLightIntensity(value[0]);
-              }}
-            />
-          </div>
-
-          <ActionGroup
-            className="hidden group-hover:block"
-            onDownload={handleDownload}
-            onDelete={handleDelete}
-            onFullscreen={handleFullscreen}
-            isFullscreen={isFullscreen}
-          />
+              <div className="absolute left-4 top-4 flex w-full flex-row items-center gap-2">
+                <Sun className="size-4 text-muted-foreground" />
+                <Slider
+                  className="w-1/3"
+                  min={1}
+                  max={20}
+                  step={0.1}
+                  value={[lightIntensity]}
+                  onValueChange={(value) => {
+                    setLightIntensity(value[0]);
+                  }}
+                />
+              </div>
+              <ActionGroup
+                className="hidden group-hover:block"
+                onDownload={handleDownload}
+                onDelete={handleDelete}
+                onFullscreen={handleFullscreen}
+                isFullscreen={isFullscreen}
+              />
+            </ErrorBoundary>
+          )}
         </>
       )}
     </div>

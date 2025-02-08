@@ -141,7 +141,13 @@ export const GLOBAL = {
   TOAST_ID: {
     MODELING: "modeling",
   },
-  MODELING_MODEL_OPTIONS: ["Trellis", "Tripo3D", "Hyper3D"] as const,
+  MODELING_MODEL_OPTIONS: [
+    "Trellis",
+    "Tripo3D",
+    "Hyper3D",
+    "StableFast3D",
+    "StablePoint3D",
+  ] as const,
   MODELING_FORMAT_OPTIONS: ["glb", "obj", "stl"] as const,
   MODELING_QUALITY_OPTIONS: ["low", "medium", "high", "extra-low"] as const,
   MODELING_TIER_OPTIONS: ["Sketch", "Regular"] as const,

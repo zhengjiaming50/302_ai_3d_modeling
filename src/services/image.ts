@@ -75,7 +75,7 @@ export async function getPromptByLLM(params: {
   return await apiKy
     .post(GET_PROMPT_API_URL, {
       json: {
-        model: "Doubao-pro-32k",
+        model: "qwen2.5-72b-instruct",
         message: `You are a translation expert, and your task is to translate the provided text content into English for optimizing and enhancing the prompts provided for image generation to ensure that the Flux model can generate excellent views.
 Input content:<text>
 ${params.prompt}
