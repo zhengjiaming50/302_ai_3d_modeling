@@ -135,7 +135,7 @@ export async function getTripo3DModelingTask(imageUrl: string) {
           type: ["png", "jpeg"].includes(imageType) ? imageType : "png",
           url: imageUrl,
         },
-        model_version: "v2.0-20240919",
+        model_version: "v2.5-20250123",
       },
     })
     .json<Tripo3DResponse>();
