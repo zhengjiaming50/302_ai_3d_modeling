@@ -88,10 +88,17 @@ export function ModelRecordCard({
       canHighlight={false}
     >
       <div
-        className="flex h-full w-full items-center justify-center"
+        className="relative flex h-full w-full items-center justify-center"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
+        {" "}
+        <div className="absolute bottom-0 left-0 rounded-md bg-black/10 px-2 py-1 text-xs backdrop-blur">
+          {modelingModel}
+        </div>
+        <div className="absolute bottom-0 right-0 rounded-md bg-black/10 px-2 py-1 text-xs backdrop-blur">
+          {modelingFormat}
+        </div>
         {showModel && !didCatch ? (
           <ErrorBoundary>
             <Suspense

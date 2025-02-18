@@ -77,6 +77,11 @@
       "previous": "上一步",
       "unsupportedWindowSize": "该应用不支持当前的分辨率"
     },
+    "model_converter": {
+      "converting": "转换中...",
+      "label": "转为",
+      "model_converter": "格式转换"
+    },
     "panel": {
       "image_setting_panel": {
         "image_generator": {
@@ -108,7 +113,7 @@
           "label": "示例图片"
         },
         "image_setting_tab": {
-          "label": "上传图片"
+          "label": "图片上传"
         },
         "image_uploader": {
           "download_status": {
@@ -181,6 +186,9 @@
             "success": "下载完成"
           },
           "error": "当前设备并不支持预览3D模型，请到历史记录中直接下载",
+          "errors": {
+            "failedToCreateZipFolder": "转换失败，请重新尝试"
+          },
           "label": "AI建模",
           "placeholder": "生成3D模型的结果将会呈现在这里",
           "unsupported_webgl": "当前系统可能不支持WebGL，无法展示3D模型"

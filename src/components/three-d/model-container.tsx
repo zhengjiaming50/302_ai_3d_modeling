@@ -1,9 +1,7 @@
 "use client";
 
 import { SupportedFileTypes } from "@/stores/slices/model_viewer_store";
-import { GLBModelLoader } from "./glb-model-loader";
-import { OBJModelLoader } from "./obj-model-loader";
-import { STLModelLoader } from "./stl-model-loader";
+import { GLBModelLoader, OBJModelLoader, STLModelLoader } from "./model-loader";
 
 interface ModelContainerProps {
   modelUrl: string;

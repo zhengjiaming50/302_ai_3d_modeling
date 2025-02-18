@@ -76,6 +76,11 @@
       "previous": "Previous",
       "unsupportedWindowSize": "This application does not support the current resolution"
     },
+    "model_converter": {
+      "converting": "Converting...",
+      "label": "Turn to",
+      "model_converter": "Format conversion"
+    },
     "panel": {
       "image_setting_panel": {
         "image_generator": {
@@ -107,7 +112,7 @@
           "label": "Sample Images"
         },
         "image_setting_tab": {
-          "label": "Upload Image"
+          "label": "Image Upload"
         },
         "image_uploader": {
           "download_status": {
@@ -183,6 +188,9 @@
             "success": "Download completed"
           },
           "error": "The current device does not support previewing 3D models, please download them directly in the history record.",
+          "errors": {
+            "failedToCreateZipFolder": "The conversion failed, please try again"
+          },
           "label": "AI Modeling",
           "placeholder": "The results of generating 3D models will be presented here",
           "unsupported_webgl": "The current system may not support webgl, and cannot show 3D model"

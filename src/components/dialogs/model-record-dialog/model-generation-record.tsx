@@ -4,8 +4,7 @@ import { useTranslations } from "next-intl";
 import { BaseRecordInterface } from "../base-record-interface";
 import { ModelRecordCard } from "./model-record-card";
 import { useMonitorMessage } from "@/hooks/global/use-monitor-message";
-import { useSetAtom } from "jotai";
-import { useAtomValue } from "jotai";
+import { useSetAtom, useAtomValue } from "jotai";
 import {
   deleteModelingGenerationRecord,
   getModelingGenerationRecords,

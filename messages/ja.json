@@ -76,6 +76,11 @@
       "previous": "前の",
       "unsupportedWindowSize": "このアプリケーションは、現在の解像度をサポートしていません"
     },
+    "model_converter": {
+      "converting": "変換...",
+      "label": "に頼ります",
+      "model_converter": "フォーマット変換"
+    },
     "panel": {
       "image_setting_panel": {
         "image_generator": {
@@ -183,6 +188,9 @@
             "success": "ダウンロード完了"
           },
           "error": "現在のデバイスは、3Dモデルのプレビューモデルをサポートしていません。履歴レコードに直接ダウンロードしてください。",
+          "errors": {
+            "failedToCreateZipFolder": "変換が失敗しました。もう一度やり直してください"
+          },
           "label": "AIモデリング",
           "placeholder": "3Dモデルを生成した結果は、ここで提示されます",
           "unsupported_webgl": "現在のシステムはWebGLをサポートしておらず、3Dモデルを表示できません"

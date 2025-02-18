@@ -67,9 +67,7 @@ export default function Home() {
           )}
 
           <Button
-            className={cn(
-              step === "1" ? "self-end" : "-translate-y-[60px] self-start"
-            )}
+            className={cn(step === "1" ? "self-end" : "self-start")}
             variant={step === "1" ? "default" : "outline"}
             onClick={() => setStep(step === "1" ? "2" : "1")}
             disabled={disableButton}

@@ -8,6 +8,7 @@ import { createScopedLogger } from "@/utils/logger";
 import { useTranslations } from "next-intl";
 import { FormEvent, useEffect } from "react";
 import { GLOBAL } from "@/constants";
+import { ModelConverter } from "@/components/panels/model-generation-panel/model-converter";
 
 const logger = createScopedLogger("ModelingForm");
 
@@ -167,26 +168,30 @@ export function ModelingForm() {
         </div>
       )}
 
-      <div className="flex flex-row justify-end gap-x-2">
-        <ModelGenerationRecord />
-        <Button
-          variant="default"
-          type="submit"
-          className="flex flex-row justify-end gap-x-2"
-          onClick={handleSubmit}
-          disabled={isGenerating || !watch("imageSrc")}
-        >
-          <LoaderRenderer
-            status={isGenerating ? "generating" : "idle"}
-            statuses={{
-              idle: { icon: null, text: t("generate_button.idle") },
-              generating: {
-                icon: <Loader2 className="h-4 w-4 animate-spin" />,
-                text: t("generate_button.generating"),
-              },
-            }}
-          />
-        </Button>
+      <div className="flex flex-row justify-between gap-x-2">
+        <ModelConverter />
+
+        <div className="flex flex-row gap-x-2">
+          <ModelGenerationRecord />
+          <Button
+            variant="default"
+            type="submit"
+            className="flex flex-row justify-end gap-x-2"
+            onClick={handleSubmit}
+            disabled={isGenerating || !watch("imageSrc")}
+          >
+            <LoaderRenderer
+              status={isGenerating ? "generating" : "idle"}
+              statuses={{
+                idle: { icon: null, text: t("generate_button.idle") },
+                generating: {
+                  icon: <Loader2 className="h-4 w-4 animate-spin" />,
+                  text: t("generate_button.generating"),
+                },
+              }}
+            />
+          </Button>
+        </div>
       </div>
     </form>
   );
