@@ -122,12 +122,16 @@ export function ThreeDViewer() {
           : "h-[400px]"
       )}
     >
-      <div className="absolute bottom-2 left-2 rounded-md bg-black/10 px-2 py-1 text-xs backdrop-blur">
-        {modelingModel}
-      </div>
-      <div className="absolute bottom-2 right-2 rounded-md bg-black/10 px-2 py-1 text-xs backdrop-blur">
-        {fileType}
-      </div>
+      {modelUrl !== "" && (
+        <>
+          <div className="absolute bottom-2 left-2 rounded-md bg-black/10 px-2 py-1 text-xs backdrop-blur">
+            {modelingModel}
+          </div>
+          <div className="absolute bottom-2 right-2 rounded-md bg-black/10 px-2 py-1 text-xs backdrop-blur">
+            {fileType}
+          </div>
+        </>
+      )}
 
       {modelUrl === "" ? (
         <div className="flex flex-col items-center justify-center space-y-2 text-sm text-muted-foreground">

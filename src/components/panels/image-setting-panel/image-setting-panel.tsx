@@ -11,7 +11,7 @@ import { imageViewerStore } from "@/stores/slices/image_viewer_store";
 import { cn } from "@/lib/utils";
 
 const TABS_TRIGGER_CLASS =
-  "relative rounded-none py-2 after:absolute after:inset-x-0 after:bottom-0 after:h-0.5 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:bg-primary";
+  "relative rounded-none py-2 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:transition-all after:duration-300 after:ease-out data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:after:w-full data-[state=active]:after:bg-primary";
 
 interface ImageSettingPanelProps {
   onTabChange?: (tab: "imageSetting" | "imageGeneration") => void;
