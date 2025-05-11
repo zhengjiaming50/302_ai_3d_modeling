@@ -68,11 +68,7 @@
       }
     },
     "header": {
-      "title": "AI 3D Modeling",
-      "link": {
-        "home": "3D Modeling",
-        "environmentAnalysis": "Environment Analysis"
-      }
+      "title": "AI 3D Modeling"
     },
     "label": {
       "image": "Image Setting",
@@ -207,33 +203,6 @@
     "step": {
       "image_setting": "Image Setting",
       "model_generation": "Model Generation"
-    }
-  },
-  "environment": {
-    "title": "Environment Analysis & Modeling",
-    "description": "Upload an image or generate one with AI, then analyze and create a 3D model of the environment.",
-    "label": {
-      "unsupportedWindowSize": "Window size not supported",
-      "environmentModelPreview": "Environment Model Preview",
-      "noEnvironmentModelGenerated": "No environment model generated yet",
-      "generateEnvironmentModel": "Generate Environment Model",
-      "environmentModelDescription": "Upload or generate an image first, then click 'Generate Environment Model' to analyze and create a 3D model of the environment."
-    },
-    "button": {
-      "generateEnvironmentModel": "Generate Environment Model",
-      "downloadEnvironmentModel": "Download Environment Model"
-    },
-    "toast": {
-      "success": "Success",
-      "error": "Error",
-      "environmentModelGenerated": "Environment model generated successfully",
-      "environmentModelGenerationFailed": "Failed to generate environment model",
-      "environmentModelDownloaded": "Environment model downloaded successfully",
-      "environmentModelDownloadFailed": "Failed to download environment model"
-    },
-    "label": {
-      "next": "Next",
-      "previous": "Previous"
     }
   }
 }
