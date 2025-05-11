@@ -69,7 +69,11 @@
       }
     },
     "header": {
-      "title": "AI 3D建模"
+      "title": "AI 3D 建模",
+      "link": {
+        "home": "3D 建模",
+        "environmentAnalysis": "环境分析"
+      }
     },
     "label": {
       "image": "设置图片",
@@ -201,6 +205,33 @@
     "step": {
       "image_setting": "设置图片",
       "model_generation": "模型生成"
+    }
+  },
+  "environment": {
+    "title": "环境分析与建模",
+    "description": "上传图像或使用 AI 生成图像，然后分析并创建环境的 3D 模型。",
+    "label": {
+      "unsupportedWindowSize": "不支持的窗口大小",
+      "environmentModelPreview": "环境模型预览",
+      "noEnvironmentModelGenerated": "尚未生成环境模型",
+      "generateEnvironmentModel": "生成环境模型",
+      "environmentModelDescription": "首先上传或生成图像，然后点击"生成环境模型"以分析并创建环境的 3D 模型。"
+    },
+    "button": {
+      "generateEnvironmentModel": "生成环境模型",
+      "downloadEnvironmentModel": "下载环境模型"
+    },
+    "toast": {
+      "success": "成功",
+      "error": "错误",
+      "environmentModelGenerated": "环境模型生成成功",
+      "environmentModelGenerationFailed": "环境模型生成失败",
+      "environmentModelDownloaded": "环境模型下载成功",
+      "environmentModelDownloadFailed": "环境模型下载失败"
+    },
+    "label": {
+      "next": "下一步",
+      "previous": "上一步"
     }
   }
 }
