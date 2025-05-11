@@ -69,7 +69,11 @@
       }
     },
     "header": {
-      "title": "AI 3D建模"
+      "title": "AI 3D建模",
+      "nav": {
+        "home": "3D建模",
+        "environment": "环境分析"
+      }
     },
     "label": {
       "image": "设置图片",
@@ -201,6 +205,18 @@
     "step": {
       "image_setting": "设置图片",
       "model_generation": "模型生成"
+    }
+  },
+  "environment": {
+    "title": "环境分析与3D建模",
+    "description": "上传或生成图像，然后分析并创建环境的3D模型。",
+    "label": {
+      "unsupportedWindowSize": "该应用不支持当前的分辨率",
+      "next": "下一步",
+      "previous": "上一步"
+    },
+    "sample_images": {
+      "label": "环境示例图片"
     }
   }
 }

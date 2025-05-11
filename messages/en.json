@@ -68,7 +68,11 @@
       }
     },
     "header": {
-      "title": "AI 3D Modeling"
+      "title": "AI 3D Modeling",
+      "nav": {
+        "home": "3D Modeling",
+        "environment": "Environment Analysis"
+      }
     },
     "label": {
       "image": "Image Setting",
@@ -203,6 +207,18 @@
     "step": {
       "image_setting": "Image Setting",
       "model_generation": "Model Generation"
+    }
+  },
+  "environment": {
+    "title": "Environment Analysis & 3D Modeling",
+    "description": "Upload or generate an image, then analyze and create a 3D model of the environment.",
+    "label": {
+      "unsupportedWindowSize": "This application does not support the current resolution",
+      "next": "Next Step",
+      "previous": "Previous"
+    },
+    "sample_images": {
+      "label": "Environment Sample Images"
     }
   }
 }

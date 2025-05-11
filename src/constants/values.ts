@@ -137,6 +137,58 @@ export const GLOBAL = {
           "https://file.302.ai/gpt/imgs/2c31f929ae20a52f631e9a04f46c911c.glb",
       },
     ],
+    ENVIRONMENT_IMAGE_LIST: [
+      {
+        name: "env_sample_1",
+        prompt_en:
+          "Isometric 3D, A modern city street with tall buildings, street lamps, and busy traffic.",
+        prompt_zh: "等距3D，一条现代城市街道，有高楼大厦、路灯和繁忙的交通。",
+        prompt_ja: "等距3D、高層ビル、街灯、交通量の多い現代都市の通り。",
+        imageSrc:
+          "https://file.302.ai/gpt/imgs/60a3dc0cf6c25f8937e4e31c426b3ca7.png",
+        imagePath: "/images/global/sample/env_sample_1.png",
+        modelingSrc:
+          "https://file.302.ai/gpt/imgs/20250113/603967c8777847baab3ff5ab3c3e041f.glb",
+      },
+      {
+        name: "env_sample_2",
+        prompt_en:
+          "Isometric 3D, A peaceful park with trees, benches, a fountain, and walking paths.",
+        prompt_zh: "等距3D，一个宁静的公园，有树木、长椅、喷泉和步行道。",
+        prompt_ja: "等距3D、木々、ベンチ、噴水、歩道のある静かな公園。",
+        imageSrc:
+          "https://file.302.ai/gpt/imgs/e0d7e3c7f2693a5d5da11e7e05306963.png",
+        imagePath: "/images/global/sample/env_sample_2.png",
+        modelingSrc:
+          "https://file.302.ai/gpt/imgs/20250113/5b1ed2949eab44faadd35ce9a05e66eb.glb",
+      },
+      {
+        name: "env_sample_3",
+        prompt_en:
+          "Isometric 3D, A cozy living room with a sofa, coffee table, bookshelves, and a fireplace.",
+        prompt_zh: "等距3D，一个舒适的客厅，有沙发、咖啡桌、书架和壁炉。",
+        prompt_ja:
+          "等距3D、ソファ、コーヒーテーブル、本棚、暖炉のある居心地の良いリビングルーム。",
+        imageSrc:
+          "https://file.302.ai/gpt/imgs/e4ef65230272b5a4104b5f04edd453b3.png",
+        imagePath: "/images/global/sample/env_sample_3.png",
+        modelingSrc:
+          "https://file.302.ai/gpt/imgs/20250113/f64d59897a374abb9237cc7f52397638.glb",
+      },
+      {
+        name: "env_sample_4",
+        prompt_en:
+          "Isometric 3D, A forest scene with tall trees, bushes, rocks, and a small stream.",
+        prompt_zh:
+          "等距3D，一个森林场景，有高大的树木、灌木丛、岩石和一条小溪。",
+        prompt_ja: "等距3D、高い木々、茂み、岩、小さな小川のある森林の風景。",
+        imageSrc:
+          "https://file.302.ai/gpt/imgs/ce9000c5956d2856e52d5e1300b9a792.png",
+        imagePath: "/images/global/sample/env_sample_4.png",
+        modelingSrc:
+          "https://file.302.ai/gpt/imgs/9e2cfff34ef33c5413d352bbe8c22176.glb",
+      },
+    ],
   },
   TOAST_ID: {
     MODELING: "modeling",
