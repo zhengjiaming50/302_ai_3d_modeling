@@ -6,6 +6,7 @@ const STORAGE_KEY = "app.model.viewer.state";
 export type SupportedFileTypes = "glb" | "obj" | "stl";
 export type SupportedModelingModel =
   | "Trellis"
+  | "OpenCV"
   | "Tripo3D"
   | "Hyper3D"
   | "StableFast3D"

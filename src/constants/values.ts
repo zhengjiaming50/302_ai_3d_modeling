@@ -195,6 +195,7 @@ export const GLOBAL = {
   },
   MODELING_MODEL_OPTIONS: [
     "Trellis",
+    "OpenCV",
     "Tripo3D",
     "Hyper3D",
     "StableFast3D",

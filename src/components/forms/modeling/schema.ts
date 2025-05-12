@@ -4,6 +4,7 @@ export const modelingFormSchema = z.object({
   imageSrc: z.string(),
   modelingModel: z.enum([
     "Trellis",
+    "OpenCV",
     "Tripo3D",
     "Hyper3D",
     "StableFast3D",

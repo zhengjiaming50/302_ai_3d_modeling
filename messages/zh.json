@@ -69,7 +69,7 @@
       }
     },
     "header": {
-      "title": "AI 3D建模",
+      "title": "AIGC 3D建模系统",
       "nav": {
         "home": "3D建模",
         "environment": "环境分析"
@@ -184,6 +184,19 @@
             "failed": "3D建模失败，请稍后再试",
             "generating": "正在进行3D建模...",
             "success": "3D建模成功"
+          },
+          "model_groups": {
+            "main_options": "建模主要方案",
+            "advanced_options": "高级模型选项", 
+            "advanced_settings": "高级设置"
+          },
+          "model_descriptions": {
+            "Trellis": "基于AI的3D建模方案，适合一般物体和场景",
+            "OpenCV": "基于计算机视觉和点云技术的建模方案，通过深度估计和特征检测优化人像和复杂几何结构",
+            "Tripo3D": "适合精细物体的三维重建",
+            "Hyper3D": "高级3D建模，支持更多格式和设置",
+            "StableFast3D": "快速生成简单3D模型",
+            "StablePoint3D": "点云转换3D模型，适合复杂物体"
           }
         },
         "modeling_preview": {

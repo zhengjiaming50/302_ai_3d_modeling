@@ -68,7 +68,7 @@
       }
     },
     "header": {
-      "title": "AI 3D Modeling",
+      "title": "AIGC 3D Modeling System",
       "nav": {
         "home": "3D Modeling",
         "environment": "Environment Analysis"
@@ -186,6 +186,19 @@
             "failed": "Failed to generate 3D modeling, please try again later",
             "generating": "Generating 3D model...",
             "success": "Successfully generate 3D modeling"
+          },
+          "model_groups": {
+            "main_options": "Main Modeling Options",
+            "advanced_options": "Advanced Model Options", 
+            "advanced_settings": "Advanced Settings"
+          },
+          "model_descriptions": {
+            "Trellis": "AI-based 3D modeling solution, suitable for general objects and scenes",
+            "OpenCV": "Computer vision and point cloud-based modeling solution, optimizes portraits and complex geometries through depth estimation and feature detection",
+            "Tripo3D": "Suitable for detailed object reconstruction",
+            "Hyper3D": "Advanced 3D modeling with more formats and settings",
+            "StableFast3D": "Quick generation of simple 3D models",
+            "StablePoint3D": "Point cloud to 3D model conversion, suitable for complex objects"
           }
         },
         "modeling_preview": {

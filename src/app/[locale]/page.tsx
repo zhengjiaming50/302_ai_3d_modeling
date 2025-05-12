@@ -6,7 +6,14 @@ import { ImageSettingPanel } from "@/components/panels/image-setting-panel/image
 import { ModelGenerationPanel } from "@/components/panels/model-generation-panel/model-generation-panel";
 import { useIsMobile } from "@/hooks/global/use-mobile";
 import { useTranslations } from "next-intl";
-import { Ban, ArrowLeftToLine, ArrowRightToLine } from "lucide-react";
+import {
+  Ban,
+  ArrowLeftToLine,
+  ArrowRightToLine,
+  Package,
+  SquareCode,
+  Layers3,
+} from "lucide-react";
 import { useWindowSize } from "@/hooks/global/use-window-size";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -47,6 +54,58 @@ export default function Home() {
   return (
     <div className="container relative mx-auto mt-10 flex min-h-[calc(100vh-6rem)] max-w-[1280px] flex-col items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
       <HomeHeader />
+
+      {/* 系统描述区域 */}
+      <div className="mb-6 w-full rounded-lg border bg-muted/50 p-4 text-sm">
+        <div className="mb-2 flex items-center gap-2">
+          <Package className="h-5 w-5 text-primary" />
+          <h2 className="text-lg font-semibold">AIGC 3D建模系统</h2>
+        </div>
+        <p className="mb-3">
+          本项目以AIGC技术为主要工具，建立一个网站，以文字或图像为索引，根据用户的目标需求实时生成所需的特定视角下的人像、物件、场景等图像，在此基础上将其三维化，形成多角度可旋转的3D图形。
+        </p>
+        <div className="mb-3 ml-4">
+          <p className="mb-1">
+            <span className="font-medium">1.</span>{" "}
+            根据文字和图像线索进行3D建模，以补全人像信息。
+          </p>
+          <p className="mb-1">
+            <span className="font-medium">2.</span>{" "}
+            根据文字和图像线索对周边环境进行分析并建模，模拟还原现场环境。
+          </p>
+          <p className="mb-1">
+            <span className="font-medium">3.</span>{" "}
+            将生成的人像、场景等模型数据进行保存。
+          </p>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-dashed bg-background/80 p-3">
+          <div className="mb-2 font-medium text-primary">
+            支持两种建模技术路线：
+          </div>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div className="flex items-start gap-2">
+              <Layers3 className="mt-0.5 h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">AI建模技术</div>
+                <div className="text-xs">
+                  基于人工智能生成模型，适用于大多数普通场景和物体，生成速度快。
+                </div>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <SquareCode className="mt-0.5 h-5 w-5 text-primary" />
+              <div>
+                <div className="font-medium">计算机视觉技术</div>
+                <div className="text-xs">
+                  基于OpenCV的点云重建技术，通过深度估计和特征检测，适合复杂结构和人像建模。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {!isMobile ? (
         <div className="-mx-4 flex h-full w-full flex-row divide-x">
           <div className="h-full w-1/2 pr-4">

@@ -33,17 +33,28 @@ export function ModelingForm() {
     isGenerating,
   } = useModelingForm();
 
-  const showExtraSettings = watch("modelingModel") === "Hyper3D";
+  const modelingModel = watch("modelingModel");
+  const showExtraSettings = modelingModel === "Hyper3D";
   const isSketch = watch("modelingTier") === "Sketch";
+
+  // 确保首次渲染时有默认选中项
+  useEffect(() => {
+    if (!modelingModel) {
+      setValue("modelingModel", "Trellis");
+    }
+  }, [modelingModel, setValue]);
 
   const handleSubmit = async (event: FormEvent) => {
     logger.info("handleSubmit");
 
     event.preventDefault();
 
-    switch (watch("modelingModel")) {
+    switch (modelingModel) {
       case "Trellis":
         await handleGenerateTrellisModel();
+        break;
+      case "OpenCV":
+        await handleGenerateStablePoint3DModel();
         break;
       case "Tripo3D":
         await handleGenerateTripo3DModel();
@@ -61,7 +72,6 @@ export function ModelingForm() {
         setError("modelingModel", {
           message: t("errors.modelingModel"),
         });
-
         break;
     }
   };
@@ -80,27 +90,67 @@ export function ModelingForm() {
     }
   }, [setValue, isSketch]);
 
+  // 将选项分组展示
+  const modelOptions = [
+    {
+      group: t("model_groups.main_options"),
+      options: ["Trellis", "OpenCV"],
+    },
+    {
+      group: t("model_groups.advanced_options"),
+      options: ["Tripo3D", "Hyper3D", "StableFast3D", "StablePoint3D"],
+    },
+  ];
+
   return (
     <form className="flex flex-col gap-y-6">
-      <FormGenerator
-        id="modeling-model"
-        name="modelingModel"
-        inputType="select"
-        label={t("label")}
-        defaultValue="Trellis"
-        options={GLOBAL.MODELING_MODEL_OPTIONS.map((model) => ({
-          value: model,
-          label: model,
-          id: model,
-        }))}
-        watch={watch}
-        register={register}
-        setValue={setValue}
-        errors={errors}
-      />
+      <div className="mb-4">
+        <h3 className="mb-2 text-sm font-medium">{t("label")}</h3>
+
+        {modelOptions.map((group, index) => (
+          <div key={index} className={index > 0 ? "mt-4" : ""}>
+            <div className="mb-2 text-xs font-medium text-primary">
+              {group.group}
+            </div>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {group.options.map((model) => (
+                <label
+                  key={model}
+                  className={`flex cursor-pointer items-start gap-2 rounded-md border p-3 transition-colors hover:bg-accent ${
+                    modelingModel === model ? "border-primary bg-accent/50" : ""
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    value={model}
+                    checked={modelingModel === model}
+                    {...register("modelingModel")}
+                    className="mt-0.5"
+                  />
+                  <div>
+                    <div className="font-medium">{model}</div>
+                    <div className="mt-1 text-xs text-muted-foreground">
+                      {t(`model_descriptions.${model}`)}
+                    </div>
+                  </div>
+                </label>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {errors.modelingModel && (
+          <p className="mt-1 text-xs text-destructive">
+            {errors.modelingModel.message}
+          </p>
+        )}
+      </div>
 
       {showExtraSettings && (
-        <div className="flex flex-col gap-y-6">
+        <div className="flex flex-col gap-y-6 border-t pt-4">
+          <div className="mb-2 text-sm font-medium">
+            {t("model_groups.advanced_settings")}
+          </div>
           <FormGenerator
             id="modeling-format"
             name="modelingFormat"
@@ -168,7 +218,7 @@ export function ModelingForm() {
         </div>
       )}
 
-      <div className="flex flex-row justify-between gap-x-2">
+      <div className="mt-2 flex flex-row justify-between gap-x-2">
         <ModelConverter />
 
         <div className="flex flex-row gap-x-2">
