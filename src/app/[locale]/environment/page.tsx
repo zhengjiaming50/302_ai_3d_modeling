@@ -45,16 +45,14 @@ export default function EnvironmentPage() {
   }
 
   return (
-    <div className="container relative mx-auto mt-10 flex min-h-[calc(100vh-6rem)] max-w-[1280px] flex-col items-center gap-4 rounded-lg border border-pink-500/50 bg-black/90 p-4 shadow-[0_0_15px_rgba(255,0,255,0.3)] backdrop-blur-sm">
+    <div className="container relative mx-auto mt-10 flex min-h-[calc(100vh-6rem)] max-w-[1280px] flex-col items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
       <HomeHeader />
       <div className="mb-4 flex w-full flex-col space-y-2">
-        <h1 className="bg-gradient-to-r from-pink-500 to-cyan-400 bg-clip-text text-2xl font-bold text-transparent">
-          {t("title")}
-        </h1>
-        <p className="text-cyan-300/80">{t("description")}</p>
+        <h1 className="text-2xl font-bold">{t("title")}</h1>
+        <p className="text-muted-foreground">{t("description")}</p>
       </div>
       {!isMobile ? (
-        <div className="-mx-4 flex h-full w-full flex-row divide-x divide-cyan-500/30">
+        <div className="-mx-4 flex h-full w-full flex-row divide-x">
           <div className="h-full w-1/2 pr-4">
             <EnvironmentImageSettingPanel />
           </div>
@@ -73,10 +71,7 @@ export default function EnvironmentPage() {
           )}
 
           <Button
-            className={cn(
-              step === "1" ? "self-end" : "self-start",
-              "border-none bg-gradient-to-r from-pink-600 to-purple-500 text-white shadow-[0_0_10px_rgba(236,72,153,0.5)] hover:from-pink-500 hover:to-purple-400"
-            )}
+            className={cn(step === "1" ? "self-end" : "self-start")}
             variant={step === "1" ? "default" : "outline"}
             onClick={() => setStep(step === "1" ? "2" : "1")}
             disabled={disableButton}
@@ -84,11 +79,11 @@ export default function EnvironmentPage() {
             {step === "1" ? (
               <>
                 {t("label.next")}
-                <ArrowRightToLine className="ml-1 size-4" />
+                <ArrowRightToLine className="size-4" />
               </>
             ) : (
               <>
-                <ArrowLeftToLine className="mr-1 size-4" />
+                <ArrowLeftToLine className="size-4" />
                 {t("label.previous")}
               </>
             )}

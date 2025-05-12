@@ -45,10 +45,10 @@ export default function Home() {
   }
 
   return (
-    <div className="container relative mx-auto mt-10 flex min-h-[calc(100vh-6rem)] max-w-[1280px] flex-col items-center gap-4 rounded-lg border border-cyan-500/50 bg-black/90 p-4 shadow-[0_0_15px_rgba(0,255,255,0.3)] backdrop-blur-sm">
+    <div className="container relative mx-auto mt-10 flex min-h-[calc(100vh-6rem)] max-w-[1280px] flex-col items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
       <HomeHeader />
       {!isMobile ? (
-        <div className="-mx-4 flex h-full w-full flex-row divide-x divide-pink-500/30">
+        <div className="-mx-4 flex h-full w-full flex-row divide-x">
           <div className="h-full w-1/2 pr-4">
             <ImageSettingPanel />
           </div>
@@ -67,10 +67,7 @@ export default function Home() {
           )}
 
           <Button
-            className={cn(
-              step === "1" ? "self-end" : "self-start",
-              "border-none bg-gradient-to-r from-purple-600 to-cyan-500 text-white shadow-[0_0_10px_rgba(139,92,246,0.5)] hover:from-pink-500 hover:to-cyan-400"
-            )}
+            className={cn(step === "1" ? "self-end" : "self-start")}
             variant={step === "1" ? "default" : "outline"}
             onClick={() => setStep(step === "1" ? "2" : "1")}
             disabled={disableButton}
@@ -78,11 +75,11 @@ export default function Home() {
             {step === "1" ? (
               <>
                 {t("label.next")}
-                <ArrowRightToLine className="ml-1 size-4" />
+                <ArrowRightToLine className="size-4" />
               </>
             ) : (
               <>
-                <ArrowLeftToLine className="mr-1 size-4" />
+                <ArrowLeftToLine className="size-4" />
                 {t("label.previous")}
               </>
             )}
