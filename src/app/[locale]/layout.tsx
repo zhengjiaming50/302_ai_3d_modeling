@@ -86,15 +86,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={theme} style={{ colorScheme: theme }}>
-      <head>
-        {/* Performance Analysis Tool */}
-        {env.NODE_ENV === "development" && (
-          <script
-            src="https://unpkg.com/react-scan/dist/auto.global.js"
-            async
-          ></script>
-        )}
-      </head>
+      <head> {/* Performance Analysis Tool - Disabled */} </head>
       <body className="flex flex-col antialiased">
         {/* Force theme to be set on client side, to avoid hydration error on first render */}
 
