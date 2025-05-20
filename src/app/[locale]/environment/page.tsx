@@ -1,20 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import HomeHeader from "@/components/home/header";
-import { ImageSettingPanel } from "@/components/panels/image-setting-panel/image-setting-panel";
-import { ModelGenerationPanel } from "@/components/panels/model-generation-panel/model-generation-panel";
-import { useIsMobile } from "@/hooks/global/use-mobile";
 import { useTranslations } from "next-intl";
 import { Ban, ArrowLeftToLine, ArrowRightToLine } from "lucide-react";
+import { useIsMobile } from "@/hooks/global/use-mobile";
 import { useWindowSize } from "@/hooks/global/use-window-size";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAtomValue } from "jotai";
 import { imageViewerStore } from "@/stores/slices/image_viewer_store";
 import { Step } from "@/components/step/step";
+import { ImageSettingPanel } from "@/components/panels/image-setting-panel/image-setting-panel";
+import { ModelGenerationPanel } from "@/components/panels/model-generation-panel/model-generation-panel";
+import HomeHeader from "@/components/home/header";
 
-export default function Home() {
+export default function EnvironmentModeling() {
   const t = useTranslations("home");
   const globalT = useTranslations("global");
   const isMobile = useIsMobile();
@@ -48,12 +48,12 @@ export default function Home() {
   return (
     <div className="container relative mx-auto mt-10 flex min-h-[calc(100vh-6rem)] max-w-[1280px] flex-col items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
       <HomeHeader />
-      <div className="mb-4 w-full text-center">
+      <div className="mb-6 w-full text-center">
         <h2 className="mb-2 text-xl font-bold">
-          {globalT("navigation.portrait")}
+          {globalT("navigation.environment")}
         </h2>
         <p className="mx-auto max-w-3xl text-muted-foreground">
-          {t("description.portrait")}
+          {t("description.environment")}
         </p>
       </div>
       {!isMobile ? (

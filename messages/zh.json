@@ -43,6 +43,10 @@
           "label": "打开/关闭工具信息弹窗"
         }
       }
+    },
+    "navigation": {
+      "portrait": "人像建模",
+      "environment": "环境分析建模"
     }
   },
   "home": {
@@ -79,6 +83,11 @@
       "next": "下一步",
       "previous": "上一步",
       "unsupportedWindowSize": "该应用不支持当前的分辨率"
+    },
+    "description": {
+      "portrait": "本功能根据文字和图像线索进行3D建模，以补全人像信息，生成多角度可旋转的3D模型。",
+      "environment": "本功能根据文字和图像线索对周边环境进行分析并建模，通过AIGC技术模拟还原现场环境，生成多角度可旋转的3D模型。",
+      "project": "本项目以AIGC技术为主要工具，根据用户的目标需求实时生成所需的特定视角下的人像、物件、场景等图像，并将其三维化形成多角度可旋转的3D图形。"
     },
     "model_converter": {
       "converting": "转换中...",

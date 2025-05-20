@@ -8,6 +8,7 @@ export const modelingFormSchema = z.object({
     "Hyper3D",
     "StableFast3D",
     "StablePoint3D",
+    "OpenCV",
   ]),
   modelingFormat: z.enum(["glb", "obj", "stl"]),
   modelingQuality: z.enum(["low", "medium", "high", "extra-low"]),

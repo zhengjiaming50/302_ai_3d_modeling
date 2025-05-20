@@ -147,6 +147,7 @@ export const GLOBAL = {
     "Hyper3D",
     "StableFast3D",
     "StablePoint3D",
+    "OpenCV",
   ] as const,
   MODELING_FORMAT_OPTIONS: ["glb", "obj", "stl"] as const,
   MODELING_QUALITY_OPTIONS: ["low", "medium", "high", "extra-low"] as const,

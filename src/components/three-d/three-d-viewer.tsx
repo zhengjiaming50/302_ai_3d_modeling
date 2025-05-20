@@ -124,9 +124,11 @@ export function ThreeDViewer() {
     >
       {modelUrl !== "" && (
         <>
+          {/* 注释掉左下角显示的模型名称
           <div className="absolute bottom-2 left-2 rounded-md bg-black/10 px-2 py-1 text-xs backdrop-blur">
             {modelingModel}
           </div>
+          */}
           <div className="absolute bottom-2 right-2 rounded-md bg-black/10 px-2 py-1 text-xs backdrop-blur">
             {fileType}
           </div>
