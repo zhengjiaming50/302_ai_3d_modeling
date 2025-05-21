@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   `id` VARCHAR(36) NOT NULL,
   `file_name` VARCHAR(255) NOT NULL,
   `file_url` TEXT NOT NULL,
+  `local_file_path` VARCHAR(500) DEFAULT NULL,
   `mime_type` VARCHAR(100) DEFAULT 'image/png',
   `size` INT UNSIGNED,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
