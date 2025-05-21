@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const modelingFormSchema = z.object({
   imageSrc: z.string(),
+  imageId: z.string().optional(),
   modelingModel: z.enum([
     "Trellis",
     "Tripo3D",

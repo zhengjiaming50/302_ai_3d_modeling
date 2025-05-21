@@ -13,17 +13,29 @@ import { FormEvent } from "react";
 
 const logger = createScopedLogger("ImageForm");
 
-export function ImageForm() {
+interface ImageFormProps {
+  onGenerated?: (imageUrl: string) => void;
+}
+
+export function ImageForm({ onGenerated }: ImageFormProps) {
   const t = useTranslations("home.panel.image_setting_panel.image_generator");
 
-  const { watch, register, setValue, errors, handleGenerate, isGenerating } =
-    useImageForm();
+  const { 
+    watch, 
+    register, 
+    setValue, 
+    errors, 
+    handleGenerate: _handleGenerate, 
+    isGenerating 
+  } = useImageForm({
+    onSuccess: onGenerated
+  });
 
   const handleSubmit = async (event: FormEvent) => {
     logger.info("handleSubmit");
 
     event.preventDefault();
-    await handleGenerate();
+    await _handleGenerate();
   };
 
   return (

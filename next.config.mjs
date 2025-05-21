@@ -31,6 +31,19 @@ const nextConfig = {
       // ...
     ],
   },
+  // 添加webpack配置，在客户端排除Node.js原生模块
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // 在客户端排除Node.js原生模块
+      config.resolve.fallback = {
+        fs: false,
+        path: false,
+        mysql: false,
+        'mysql2/promise': false
+      };
+    }
+    return config;
+  },
 };
 
 export default withNextIntl(nextConfig);

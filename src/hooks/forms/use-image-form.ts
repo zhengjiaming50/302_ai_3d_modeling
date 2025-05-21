@@ -17,7 +17,11 @@ import { toast } from "sonner";
 
 const logger = createScopedLogger("useImageForm");
 
-export function useImageForm() {
+interface UseImageFormProps {
+  onSuccess?: (imageUrl: string) => void;
+}
+
+export function useImageForm({ onSuccess }: UseImageFormProps = {}) {
   const t = useTranslations("home.panel.image_setting_panel.image_generator");
 
   const uiLanguage = store.get(languageAtom);
@@ -132,6 +136,11 @@ export function useImageForm() {
           createAt,
         });
 
+        // 调用成功回调
+        if (onSuccess) {
+          onSuccess(imageSrc);
+        }
+
         setIsGenerating(false);
         logger.debug("Flux image:", imageSrc);
         return t("toast.success");
@@ -148,6 +157,7 @@ export function useImageForm() {
     uiLanguage,
     _addImageGenerationRecord,
     updateImageViewer,
+    onSuccess, // 添加onSuccess到依赖数组
   ]);
 
   return {

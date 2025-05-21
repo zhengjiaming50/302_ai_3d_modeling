@@ -12,6 +12,7 @@ export type ModelingGenerationType = {
   textures: string[];
   createAt: number;
   modelingForm: ModelingFormType;
+  modelId?: string;
 };
 
 export const defaultState: ModelingGenerationType[] = [];

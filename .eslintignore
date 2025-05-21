@@ -1,2 +1,3 @@
 **/*.css
 **/ui/*.tsx
+src/generated/**/*

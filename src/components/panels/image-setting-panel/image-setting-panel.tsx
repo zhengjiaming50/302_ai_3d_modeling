@@ -4,7 +4,7 @@ import { ImageGenerator } from "./image-generator";
 import { ImageUploader } from "./image-uploader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { updateModelingFormAtom } from "@/stores/slices/modeling_form_store";
 import { useAtomValue, useSetAtom } from "jotai";
 import { imageViewerStore } from "@/stores/slices/image_viewer_store";
@@ -23,23 +23,36 @@ export function ImageSettingPanel({ onTabChange }: ImageSettingPanelProps) {
   const updateModelingForm = useSetAtom(updateModelingFormAtom);
   const { uploadedImageUrl, generatedImageUrl } =
     useAtomValue(imageViewerStore);
+    
+  const [currentImageId, setCurrentImageId] = useState<string | undefined>(undefined);
 
   const handleImageSelected = useCallback(
-    (imageUrl: string) => {
-      updateModelingForm({ imageSrc: imageUrl });
+    (imageUrl: string, imageId?: string) => {
+      setCurrentImageId(imageId);
+      updateModelingForm({ 
+        imageSrc: imageUrl,
+        imageId: imageId
+      });
     },
     [updateModelingForm]
   );
 
   const handleTabChange = useCallback(
     (value: string) => {
-      updateModelingForm({
-        imageSrc:
-          value === "imageSetting" ? uploadedImageUrl : generatedImageUrl,
-      });
+      if (value === "imageSetting") {
+        updateModelingForm({
+          imageSrc: uploadedImageUrl,
+          imageId: currentImageId
+        });
+      } else {
+        updateModelingForm({
+          imageSrc: generatedImageUrl,
+          imageId: undefined
+        });
+      }
       onTabChange?.(value as "imageSetting" | "imageGeneration");
     },
-    [updateModelingForm, uploadedImageUrl, generatedImageUrl, onTabChange]
+    [updateModelingForm, uploadedImageUrl, generatedImageUrl, onTabChange, currentImageId]
   );
 
   useEffect(() => {

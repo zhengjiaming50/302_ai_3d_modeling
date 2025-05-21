@@ -23,13 +23,43 @@ const logger = createScopedLogger("ImageUploader");
 const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 
 interface ImageUploaderProps {
-  onUpload: (imageUrl: string) => void;
+  onUpload: (imageUrl: string, imageId?: string) => void;
+}
+
+// 使用真实API保存图片到数据库
+async function saveImageToDatabase(imageData: {
+  fileName: string;
+  fileUrl: string;
+  mimeType: string;
+  size?: number;
+}): Promise<{ id: string }> {
+  try {
+    const response = await fetch('/api/images', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(imageData),
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to save image');
+    }
+    
+    const data = await response.json();
+    return { id: data.id };
+  } catch (error) {
+    logger.error("Failed to save image via API:", error);
+    throw error;
+  }
 }
 
 export function ImageUploader({ onUpload }: ImageUploaderProps) {
   const t = useTranslations("home.panel.image_setting_panel.image_uploader");
 
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [currentImageId, setCurrentImageId] = useState<string | null>(null);
 
   const { uploadedImageUrl } = useAtomValue(imageViewerStore);
   const updateImageViewer = useSetAtom(updateImageViewerStore);
@@ -58,10 +88,32 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
         const fileToUpload =
           file.type !== "image/png" ? await convertToPng(file) : file;
         const [uploadedFile] = await upload([fileToUpload]);
-        updateImageViewer({
-          uploadedImageUrl: uploadedFile.url,
-        });
-        onUpload(uploadedFile.url);
+        
+        try {
+          // 使用API保存图片数据
+          const imageData = await saveImageToDatabase({
+            fileName: fileToUpload.name,
+            fileUrl: uploadedFile.url,
+            mimeType: fileToUpload.type,
+            size: fileToUpload.size
+          });
+          
+          setCurrentImageId(imageData.id);
+          updateImageViewer({
+            uploadedImageUrl: uploadedFile.url,
+          });
+          onUpload(uploadedFile.url, imageData.id);
+          logger.info("Image saved to database with ID:", imageData.id);
+        } catch (dbError) {
+          const errorMessage = 
+            dbError instanceof Error ? dbError.message : "Unknown database error";
+          logger.error("Failed to save image to database:", errorMessage);
+          
+          updateImageViewer({
+            uploadedImageUrl: uploadedFile.url,
+          });
+          onUpload(uploadedFile.url);
+        }
       } catch (error) {
         const errorMessage =
           error instanceof Error ? error.message : "Unknown error occurred";
@@ -119,6 +171,7 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
     updateImageViewer({
       uploadedImageUrl: "",
     });
+    setCurrentImageId(null);
     onUpload("");
   }, [onUpload, updateImageViewer, setIsFullscreen]);
 
@@ -137,11 +190,30 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
   }, []);
 
   const handleSampleImageSelected = useCallback(
-    (imageUrl: string) => {
+    async (imageUrl: string) => {
       updateImageViewer({
         uploadedImageUrl: imageUrl,
       });
-      onUpload(imageUrl);
+      
+      try {
+        const imageName = `sample-${Date.now()}.png`;
+        // 使用API保存图片数据
+        const imageData = await saveImageToDatabase({
+          fileName: imageName,
+          fileUrl: imageUrl,
+          mimeType: 'image/png',
+        });
+        
+        setCurrentImageId(imageData.id);
+        onUpload(imageUrl, imageData.id);
+        logger.info("Sample image saved to database with ID:", imageData.id);
+      } catch (dbError) {
+        const errorMessage = 
+          dbError instanceof Error ? dbError.message : "Unknown database error";
+        logger.error("Failed to save sample image to database:", errorMessage);
+        
+        onUpload(imageUrl);
+      }
     },
     [onUpload, updateImageViewer]
   );
