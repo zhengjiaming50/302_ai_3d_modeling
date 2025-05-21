@@ -22,6 +22,9 @@ export const env = createEnv({
     NEXT_PUBLIC_HIDE_BRAND: z.boolean().optional(),
     NEXT_PUBLIC_AI_302_API_UPLOAD_URL: z.string(),
     NEXT_PUBLIC_GITHUB_REPO_URL: z.string().optional(),
+    NEXT_PUBLIC_SILICONFLOW_API_URL: z.string(), // SiliconFlow API URL
+    NEXT_PUBLIC_SILICONFLOW_API_KEY: z.string(), // SiliconFlow API Key
+    NEXT_PUBLIC_SILICONFLOW_MODEL_ID: z.string(), // SiliconFlow视觉模型ID
   },
   // Runtime environment configuration
   runtimeEnv: {
@@ -44,6 +47,12 @@ export const env = createEnv({
     NEXT_PUBLIC_AI_302_API_UPLOAD_URL:
       process.env.NEXT_PUBLIC_AI_302_API_UPLOAD_URL,
     NEXT_PUBLIC_GITHUB_REPO_URL: process.env.NEXT_PUBLIC_GITHUB_REPO_URL,
+    NEXT_PUBLIC_SILICONFLOW_API_URL:
+      process.env.NEXT_PUBLIC_SILICONFLOW_API_URL,
+    NEXT_PUBLIC_SILICONFLOW_API_KEY:
+      process.env.NEXT_PUBLIC_SILICONFLOW_API_KEY,
+    NEXT_PUBLIC_SILICONFLOW_MODEL_ID:
+      process.env.NEXT_PUBLIC_SILICONFLOW_MODEL_ID,
   },
   // Handle validation errors
   onValidationError: (error: ZodError) => {
