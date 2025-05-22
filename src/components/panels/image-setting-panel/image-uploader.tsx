@@ -7,7 +7,7 @@ import { createScopedLogger } from "@/utils/logger";
 import { useUnifiedFileUpload } from "@/hooks/global/use-unified-file-upload";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
-import { Loader2, ImageUp } from "lucide-react";
+import { Loader2, ImageUp, Camera as CameraIcon } from "lucide-react";
 import { cn, convertToPng } from "@/lib/utils";
 import { useMonitorMessage } from "@/hooks/global/use-monitor-message";
 import { ActionGroup } from "@/components/action-group/action-group";
@@ -17,6 +17,8 @@ import {
   updateImageViewerStore,
 } from "@/stores/slices/image_viewer_store";
 import { useAtomValue, useSetAtom } from "jotai";
+import { CameraCapture } from "./camera-capture";
+import { Button } from "@/components/ui/button";
 
 const logger = createScopedLogger("ImageUploader");
 
@@ -59,7 +61,7 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
   const t = useTranslations("home.panel.image_setting_panel.image_uploader");
 
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [currentImageId, setCurrentImageId] = useState<string | null>(null);
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
 
   const { uploadedImageUrl } = useAtomValue(imageViewerStore);
   const updateImageViewer = useSetAtom(updateImageViewerStore);
@@ -98,7 +100,6 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
             size: fileToUpload.size
           });
           
-          setCurrentImageId(imageData.id);
           updateImageViewer({
             uploadedImageUrl: uploadedFile.url,
           });
@@ -123,6 +124,31 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
       }
     },
     [t, upload, onUpload, updateImageViewer]
+  );
+  
+  const handleCameraCapture = useCallback(
+    async (blob: Blob) => {
+      try {
+        // 创建File对象用于上传
+        const file = new File(
+          [blob], 
+          `camera-capture-${Date.now()}.png`, 
+          { type: 'image/png' }
+        );
+        
+        // 利用现有的图片上传功能处理拍照的图片
+        await handleImageUpload(file);
+        
+        // 关闭相机模态框
+        setIsCameraOpen(false);
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : "Unknown error occurred";
+        toast.error(t("error.camera_capture_failed"));
+        logger.error("Camera capture failed:", errorMessage);
+      }
+    },
+    [handleImageUpload, t]
   );
 
   const handlePaste = useCallback(
@@ -171,7 +197,6 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
     updateImageViewer({
       uploadedImageUrl: "",
     });
-    setCurrentImageId(null);
     onUpload("");
   }, [onUpload, updateImageViewer, setIsFullscreen]);
 
@@ -204,7 +229,6 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
           mimeType: 'image/png',
         });
         
-        setCurrentImageId(imageData.id);
         onUpload(imageUrl, imageData.id);
         logger.info("Sample image saved to database with ID:", imageData.id);
       } catch (dbError) {
@@ -217,6 +241,10 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
     },
     [onUpload, updateImageViewer]
   );
+  
+  const openCamera = useCallback(() => {
+    setIsCameraOpen(true);
+  }, []);
 
   useEffect(() => {
     document.addEventListener("paste", handlePaste);
@@ -256,36 +284,58 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
               />
             </>
           ) : (
-            <>
+            <div className="flex flex-col items-center justify-center h-full w-full">
               {isUploading ? (
                 <Loader2 className="size-8 animate-spin text-primary" />
               ) : (
-                <div
-                  className="relative flex h-full w-full items-center justify-center"
-                  onDrop={handleDrop}
-                  onDragOver={handleDragOver}
-                >
-                  <div className="flex flex-col items-center justify-center space-y-2 text-sm text-muted-foreground">
-                    <ImageUp className="size-8" />
-                    <div className="flex flex-col items-center justify-center">
-                      <span className="text-center">{t("placeholder_1")}</span>
-                    </div>
+                <>
+                  <div
+                    className="relative flex flex-col items-center justify-center p-6 border border-dashed border-border rounded-lg hover:border-primary w-full max-w-xs cursor-pointer"
+                    onDrop={handleDrop}
+                    onDragOver={handleDragOver}
+                    onClick={() => document.getElementById('file-upload-input')?.click()}
+                  >
+                    <ImageUp className="size-8 mb-2" />
+                    <span className="text-center text-sm text-muted-foreground">
+                      {t("placeholder_1")}
+                    </span>
+                    <input
+                      id="file-upload-input"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="hidden"
+                      title=""
+                      multiple={false}
+                    />
                   </div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="absolute inset-0 cursor-pointer opacity-0"
-                    title=""
-                    multiple={false}
-                  />
-                </div>
+
+                  <div className="my-4 text-sm text-muted-foreground">
+                    {t("separator_or")}
+                  </div>
+
+                  <Button 
+                    variant="outline" 
+                    className="flex items-center gap-2 w-full max-w-xs"
+                    onClick={openCamera}
+                  >
+                    <CameraIcon className="h-4 w-4" />
+                    {t("camera_button")}
+                  </Button>
+                </>
               )}
-            </>
+            </div>
           )}
         </div>
       </div>
+      
       <SampleImagesList onSelected={handleSampleImageSelected} />
+      
+      <CameraCapture 
+        isOpen={isCameraOpen}
+        onClose={() => setIsCameraOpen(false)}
+        onCapture={handleCameraCapture}
+      />
     </div>
   );
 }

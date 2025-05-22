@@ -136,15 +136,23 @@
           "error": {
             "file_too_large": "上传的图片文件过大",
             "invalid_file_type": "上传的文件类型错误，不支持当前类型文件",
-            "upload_failed": "上传失败，请稍后再试"
+            "upload_failed": "上传失败，请稍后再试",
+            "camera_capture_failed": "摄像头拍照失败"
           },
           "label": "上传图片",
           "placeholder_1": "点击上传一张图片（支持.png、.jpeg、.webq、.svg等图片格式）",
           "placeholder_2": "或在下方输入框输入您想要的物体描述，",
-          "placeholder_3": "直接生成一张适合3D建模的图片！"
+          "placeholder_3": "直接生成一张适合3D建模的图片！",
+          "camera_button": "拍摄照片",
+          "separator_or": "或"
         },
         "model_generation_tab": {
           "label": "图片生成"
+        },
+        "camera_capture": {
+          "title": "拍摄照片",
+          "error": "无法访问摄像头",
+          "close_button": "关闭摄像头"
         }
       },
       "modeling_generation_panel": {

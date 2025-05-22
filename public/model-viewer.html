@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D模型查看器</title>
+  <!-- 引入Google的model-viewer组件 -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      color: #666;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .back-link:hover {
+      color: #333;
+    }
+    .back-icon {
+      margin-right: 5px;
+      width: 16px;
+      height: 16px;
+    }
+    .download-btn {
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+    }
+    .download-btn:hover {
+      background-color: #e9ecef;
+    }
+    .download-icon {
+      margin-right: 5px;
+      width: 16px;
+      height: 16px;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .card-header {
+      background-color: #f0f0f0;
+      padding: 15px 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .card-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .card-content {
+      padding: 0;
+    }
+    .viewer-container {
+      position: relative;
+      height: 70vh;
+      width: 100%;
+      background-color: #e9ecef;
+    }
+    .loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.7);
+      z-index: 10;
+    }
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .error-message {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.7);
+      z-index: 10;
+      color: #e74c3c;
+      text-align: center;
+      padding: 20px;
+    }
+    .tips {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+    .tips-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .tips-list {
+      margin: 0;
+      padding-left: 25px;
+    }
+    .tips-list li {
+      margin-bottom: 5px;
+    }
+    .warning-box {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 4px;
+      color: #856404;
+    }
+    .warning-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .warning-list {
+      margin: 0;
+      padding-left: 25px;
+    }
+    .warning-list li {
+      margin-bottom: 5px;
+    }
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      background-color: #f8f9fa;
+      --poster-color: transparent;
+    }
+    .fallback-info {
+      text-align: center;
+      padding: 20px;
+      display: none;
+    }
+    .model-controls {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: flex;
+      gap: 8px;
+      z-index: 5;
+    }
+    .control-btn {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+    }
+    .control-btn:hover {
+      background-color: rgba(255, 255, 255, 1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <a href="javascript:history.back()" class="back-link">
+        <svg class="back-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        返回对比分析
+      </a>
+      
+      <button id="downloadBtn" class="download-btn">
+        <svg class="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        下载模型文件
+      </button>
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <h1 class="card-title">3D模型查看器 - <span id="fileName">加载中...</span></h1>
+      </div>
+      <div class="card-content">
+        <div class="viewer-container">
+          <div id="loading" class="loading">
+            <div>
+              <div class="loading-spinner"></div>
+              <div>加载中...</div>
+            </div>
+          </div>
+          
+          <div id="error" class="error-message" style="display: none;">
+            <div>
+              <p id="errorMessage">无法加载3D模型</p>
+              <p style="font-size: 14px; margin-top: 10px;">请尝试下载文件后在本地查看器中打开</p>
+            </div>
+          </div>
+          
+          <!-- 使用Google的model-viewer组件显示3D模型 -->
+          <model-viewer id="modelViewer" 
+            camera-controls
+            auto-rotate
+            shadow-intensity="1"
+            environment-image="neutral"
+            exposure="0.75"
+            style="display: none;">
+          </model-viewer>
+          
+          <!-- 控制按钮 -->
+          <div class="model-controls">
+            <button id="rotateBtn" class="control-btn" title="开始/停止旋转">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+            </button>
+            <button id="resetBtn" class="control-btn" title="重置视图">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- 模型无法加载时的后备信息 -->
+          <div id="fallbackInfo" class="fallback-info">
+            <div style="font-size: 64px; margin-bottom: 10px;">📦</div>
+            <div style="font-weight: 600; margin-bottom: 10px;" id="fallbackName">模型文件</div>
+            <div style="color: #666; margin-bottom: 15px;" id="fallbackType">GLB 3D模型文件</div>
+            <button id="downloadBtnInner" class="download-btn">
+              <svg class="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+              </svg>
+              下载模型文件
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="tips">
+      <p class="tips-title">操作提示：</p>
+      <ul class="tips-list">
+        <li>左键点击并拖动：旋转模型</li>
+        <li>右键点击并拖动：平移视图</li>
+        <li>滚轮：缩放模型</li>
+        <li>双击：重置视图</li>
+      </ul>
+    </div>
+    
+    <div class="warning-box">
+      <p class="warning-title">提示：如果您无法看到3D模型，请尝试以下方法：</p>
+      <ol class="warning-list">
+        <li>确保您的浏览器支持WebGL（如Chrome、Edge等较新版本的浏览器）</li>
+        <li>点击"下载模型文件"按钮，将文件保存到您的计算机</li>
+        <li>使用专门的3D查看器应用程序（如Windows 3D查看器）打开模型文件</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // 获取URL参数
+      const urlParams = new URLSearchParams(window.location.search);
+      const modelPath = urlParams.get('path');
+      
+      // 获取DOM元素
+      const modelViewer = document.getElementById('modelViewer');
+      const loading = document.getElementById('loading');
+      const error = document.getElementById('error');
+      const errorMessage = document.getElementById('errorMessage');
+      const fallbackInfo = document.getElementById('fallbackInfo');
+      
+      // 设置文件名
+      let fileName = "未知模型";
+      if (modelPath) {
+        const pathParts = modelPath.split(/[\/\\]/);
+        fileName = pathParts[pathParts.length - 1];
+      }
+      document.getElementById('fileName').textContent = fileName;
+      document.getElementById('fallbackName').textContent = fileName;
+      
+      // 判断文件类型
+      const fileExtension = fileName.split('.').pop()?.toLowerCase();
+      if (fileExtension) {
+        const typeText = fileExtension.toUpperCase() + ' 3D模型文件';
+        document.getElementById('fallbackType').textContent = typeText;
+      }
+      
+      // 设置下载按钮
+      const setDownloadButtons = () => {
+        const downloadBtn = document.getElementById('downloadBtn');
+        const downloadBtnInner = document.getElementById('downloadBtnInner');
+        
+        if (modelPath) {
+          const downloadHandler = () => {
+            window.open(modelPath, '_blank');
+          };
+          
+          downloadBtn.addEventListener('click', downloadHandler);
+          downloadBtnInner.addEventListener('click', downloadHandler);
+        } else {
+          downloadBtn.style.display = 'none';
+          downloadBtnInner.style.display = 'none';
+        }
+      };
+      
+      setDownloadButtons();
+      
+      // 验证模型URL
+      let modelUrl = 'https://modelviewer.dev/shared-assets/models/Astronaut.glb'; // 默认模型
+      
+      if (modelPath) {
+        // 确保URL格式正确
+        if (modelPath.startsWith('http://') || modelPath.startsWith('https://')) {
+          // 使用完整URL
+          modelUrl = modelPath;
+        } else if (modelPath.startsWith('/')) {
+          // 使用相对URL（相对于当前主机）
+          modelUrl = modelPath;
+        } else {
+          // 可能是相对路径，确保以/开头
+          modelUrl = '/' + modelPath;
+        }
+        
+        // 最后的安全检查 - 如果不是一个GLB或GLTF文件，使用默认模型
+        if (!modelUrl.endsWith('.glb') && !modelUrl.endsWith('.gltf')) {
+          console.warn('不支持的模型文件格式，使用默认模型');
+          modelUrl = 'https://modelviewer.dev/shared-assets/models/Astronaut.glb';
+        }
+      }
+      
+      console.log('加载模型:', modelUrl);
+      
+      // 尝试加载模型
+      try {
+        // 设置model-viewer的属性
+        modelViewer.setAttribute('src', modelUrl);
+        modelViewer.setAttribute('alt', fileName);
+        
+        // 显示模型查看器
+        modelViewer.style.display = 'block';
+        
+        // 监听加载事件
+        modelViewer.addEventListener('load', () => {
+          // 模型加载成功
+          console.log('模型加载成功');
+          loading.style.display = 'none';
+        });
+        
+        // 监听错误事件
+        modelViewer.addEventListener('error', (event) => {
+          // 模型加载失败
+          console.error('模型加载失败:', event);
+          modelViewer.style.display = 'none';
+          loading.style.display = 'none';
+          error.style.display = 'flex';
+          errorMessage.textContent = '无法加载3D模型';
+          fallbackInfo.style.display = 'block';
+        });
+        
+        // 添加控制按钮事件
+        const rotateBtn = document.getElementById('rotateBtn');
+        rotateBtn.addEventListener('click', () => {
+          modelViewer.autoRotate = !modelViewer.autoRotate;
+        });
+        
+        const resetBtn = document.getElementById('resetBtn');
+        resetBtn.addEventListener('click', () => {
+          modelViewer.cameraOrbit = 'auto auto auto';
+          modelViewer.cameraTarget = 'auto auto auto';
+          modelViewer.fieldOfView = 'auto';
+        });
+      } catch (err) {
+        // 处理意外错误
+        console.error('初始化模型查看器时出错:', err);
+        modelViewer.style.display = 'none';
+        loading.style.display = 'none';
+        error.style.display = 'flex';
+        errorMessage.textContent = '初始化3D模型查看器失败';
+        fallbackInfo.style.display = 'block';
+      }
+      
+      // 如果10秒后仍在加载，可能是卡住了，显示错误
+      setTimeout(() => {
+        if (loading.style.display !== 'none') {
+          loading.style.display = 'none';
+          error.style.display = 'flex';
+          errorMessage.textContent = '加载3D模型超时';
+          fallbackInfo.style.display = 'block';
+        }
+      }, 10000);
+    });
+  </script>
+</body>
+</html> 
