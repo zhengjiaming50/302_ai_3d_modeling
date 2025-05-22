@@ -37,27 +37,6 @@ export async function POST(request: NextRequest) {
       size: data.size,
     });
 
-    // 异步调用AI标注API，不阻塞主流程
-    try {
-      // 使用fetch调用本地API端点
-      fetch(`${request.nextUrl.origin}/api/analyze-image`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          imageId: image.id,
-          imageUrl: data.fileUrl
-        }),
-      }).catch(err => {
-        console.error("Error calling analyze-image API:", err);
-      });
-      
-      console.log(`Image ${image.id} sent for AI tagging`);
-    } catch (apiError) {
-      console.error("Error initializing AI tagging:", apiError);
-    }
-
     return NextResponse.json({
       id: image.id,
       localFilePath: image.localFilePath,

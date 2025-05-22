@@ -1,4 +1,4 @@
-import { query } from '../lib/db';
+import { query, transaction } from '../lib/db';
 import { generateId } from '../lib/db-init';
 
 export interface Comparison {
@@ -21,20 +21,11 @@ export class ComparisonModel {
     const id = generateId();
     const now = new Date();
     
-    // 如果similarityScore是undefined，则不在SQL中指定该字段，让数据库使用默认值
-    if (data.similarityScore === undefined) {
-      await query(
-        `INSERT INTO comparisons (id, uploaded_image_id, matched_model_id)
-         VALUES (?, ?, ?)`,
-        [id, data.uploadedImageId, data.matchedModelId]
-      );
-    } else {
-      await query(
-        `INSERT INTO comparisons (id, uploaded_image_id, matched_model_id, similarity_score)
-         VALUES (?, ?, ?, ?)`,
-        [id, data.uploadedImageId, data.matchedModelId, data.similarityScore]
-      );
-    }
+    await query(
+      `INSERT INTO comparisons (id, uploaded_image_id, matched_model_id, similarity_score)
+       VALUES (?, ?, ?, ?)`,
+      [id, data.uploadedImageId, data.matchedModelId, data.similarityScore || null]
+    );
     
     return {
       id,
@@ -136,7 +127,7 @@ export class ComparisonModel {
     
     params.push(id);
     
-    await query(
+    const result = await query(
       `UPDATE comparisons SET ${updateFields.join(', ')} WHERE id = ?`,
       params
     );
@@ -146,7 +137,7 @@ export class ComparisonModel {
   
   // 删除对比记录
   static async delete(id: string): Promise<boolean> {
-    await query(
+    const result = await query(
       'DELETE FROM comparisons WHERE id = ?',
       [id]
     );

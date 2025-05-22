@@ -126,23 +126,15 @@
           "error": {
             "file_too_large": "アップロードされた画像ファイルが大きすぎます",
             "invalid_file_type": "アップロードされたファイルタイプが正しくありません、現在のタイプのファイルはサポートされていません",
-            "upload_failed": "アップロードに失敗しました。後でもう一度お試しください",
-            "camera_capture_failed": "カメラから画像のキャプチャに失敗しました"
+            "upload_failed": "アップロードに失敗しました。後でもう一度お試しください"
           },
           "label": "画像アップロード",
           "placeholder_1": "クリックして画像をアップロードします（.png、.jpeg、.webq、.svgなどの画像形式をサポートします）",
           "placeholder_2": "または、下の入力ボックスにオブジェクトの説明を入力します。",
-          "placeholder_3": "3Dモデリングに適した画像を直接生成！",
-          "camera_button": "写真を撮る",
-          "separator_or": "または"
+          "placeholder_3": "3Dモデリングに適した画像を直接生成！"
         },
         "model_generation_tab": {
           "label": "画像生成"
-        },
-        "camera_capture": {
-          "title": "写真を撮る",
-          "error": "カメラにアクセスできません",
-          "close_button": "カメラを閉じる"
         }
       },
       "modeling_generation_panel": {

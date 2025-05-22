@@ -126,23 +126,15 @@
           "error": {
             "file_too_large": "The uploaded image file is too large",
             "invalid_file_type": "The uploaded file type is incorrect, the current type of file is not supported",
-            "upload_failed": "Upload failed, please try again later",
-            "camera_capture_failed": "Failed to capture image from camera"
+            "upload_failed": "Upload failed, please try again later"
           },
           "label": "Upload Image",
           "placeholder_1": "Click to upload an image (supports image formats such as .png, .jpeg, .webq, .svg, etc.)",
           "placeholder_2": "or enter the object description you want in the input box below,",
-          "placeholder_3": "directly generate a picture suitable for 3D modeling!",
-          "camera_button": "Take Photo",
-          "separator_or": "or"
+          "placeholder_3": "directly generate a picture suitable for 3D modeling!"
         },
         "model_generation_tab": {
           "label": "Image Generation"
-        },
-        "camera_capture": {
-          "title": "Take Photo",
-          "error": "Failed to access camera",
-          "close_button": "Close Camera"
         }
       },
       "modeling_generation_panel": {

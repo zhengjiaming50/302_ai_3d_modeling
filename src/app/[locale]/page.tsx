@@ -6,22 +6,19 @@ import { ImageSettingPanel } from "@/components/panels/image-setting-panel/image
 import { ModelGenerationPanel } from "@/components/panels/model-generation-panel/model-generation-panel";
 import { useIsMobile } from "@/hooks/global/use-mobile";
 import { useTranslations } from "next-intl";
-import { Ban, ArrowLeftToLine, ArrowRightToLine, BarChart } from "lucide-react";
+import { Ban, ArrowLeftToLine, ArrowRightToLine } from "lucide-react";
 import { useWindowSize } from "@/hooks/global/use-window-size";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAtomValue } from "jotai";
 import { imageViewerStore } from "@/stores/slices/image_viewer_store";
 import { Step } from "@/components/step/step";
-import Link from "next/link";
-import { useParams } from "next/navigation";
 
 export default function Home() {
   const t = useTranslations("home");
   const globalT = useTranslations("global");
   const isMobile = useIsMobile();
   const isSupportWindowSize = useWindowSize();
-  const params = useParams<{ locale: string }>();
 
   const { uploadedImageUrl, generatedImageUrl } =
     useAtomValue(imageViewerStore);
@@ -51,16 +48,6 @@ export default function Home() {
   return (
     <div className="container relative mx-auto mt-10 flex min-h-[calc(100vh-6rem)] max-w-[1280px] flex-col items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
       <HomeHeader />
-      
-      <div className="w-full flex justify-end gap-2 mb-4">
-        <Link href={`/${params.locale}/comparison`} passHref>
-          <Button variant="outline" className="flex items-center gap-2">
-            <BarChart className="h-4 w-4" />
-            对比分析
-          </Button>
-        </Link>
-      </div>
-      
       <div className="mb-4 w-full text-center">
         <h2 className="mb-2 text-xl font-bold">
           {globalT("navigation.portrait")}
