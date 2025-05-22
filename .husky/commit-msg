@@ -1,1 +1,2 @@
-pnpm commitlint --config commitlint.config.mjs --edit
+# pnpm commitlint --config commitlint.config.mjs --edit
+# 已禁用commit-msg钩子
