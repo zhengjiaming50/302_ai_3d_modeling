@@ -2,6 +2,11 @@
 import fs from "fs";
 import path from "path";
 import mysql from "mysql2/promise";
+import { fileURLToPath } from "url";
+
+// 修复ES模块中的__dirname问题
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // 创建存储目录 - 改为public目录
 const publicDir = path.join(__dirname, "public");

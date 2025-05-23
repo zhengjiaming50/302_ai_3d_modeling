@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ImageModel } from "@/models";
 import { saveFileFromUrl } from "@/lib/file-storage";
+import { triggerImageAnnotation } from "@/services/image-annotation";
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,6 +37,15 @@ export async function POST(request: NextRequest) {
       mimeType: data.mimeType || "image/png",
       size: data.size,
     });
+
+    // 触发AI标注处理（异步，不阻塞响应）
+    try {
+      await triggerImageAnnotation(image.id, image.fileUrl);
+      console.log(`AI annotation triggered for image ${image.id}`);
+    } catch (annotationError) {
+      console.error(`Failed to trigger annotation for image ${image.id}:`, annotationError);
+      // 不影响主流程，继续返回成功响应
+    }
 
     return NextResponse.json({
       id: image.id,

@@ -31,16 +31,17 @@ CREATE TABLE IF NOT EXISTS `models` (
   FOREIGN KEY (`image_id`) REFERENCES `images` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- AI标签表
+-- AI标签表（支持长描述）
 CREATE TABLE IF NOT EXISTS `ai_tags` (
   `id` VARCHAR(36) NOT NULL,
-  `name` VARCHAR(100) NOT NULL,
+  `name` TEXT NOT NULL,
   `description` TEXT,
   `category` VARCHAR(50),
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_name` (`name`)
+  INDEX `idx_name_prefix` (`name`(255)),
+  INDEX `idx_category` (`category`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 图片-标签关联表

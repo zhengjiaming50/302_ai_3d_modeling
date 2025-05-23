@@ -6,6 +6,7 @@ export const env = createEnv({
   server: {
     NODE_ENV: z.enum(["development", "production"]), // Ensure NODE_ENV is either 'development' or 'production'
     DATABASE_URL: z.string().url(), // 数据库连接字符串
+    SILICONFLOW_API_KEY: z.string().optional(), // SiliconFlow API密钥
   },
   client: {
     NEXT_PUBLIC_LOG_LEVEL: z.enum(["trace", "debug", "info", "warn", "error"]),
@@ -27,6 +28,7 @@ export const env = createEnv({
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
     DATABASE_URL: process.env.DATABASE_URL,
+    SILICONFLOW_API_KEY: process.env.SILICONFLOW_API_KEY,
     NEXT_PUBLIC_LOG_LEVEL: process.env.NEXT_PUBLIC_LOG_LEVEL,
     NEXT_PUBLIC_302_WEBSITE_URL_GLOBAL:
       process.env.NEXT_PUBLIC_302_WEBSITE_URL_GLOBAL,
