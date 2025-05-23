@@ -80,12 +80,3 @@ pnpm dev
 pnpm build
 pnpm start
 ```
-
-## ✨ About 302.AI ✨
-[302.AI](https://302.ai/en/) is an enterprise-oriented AI application platform that offers pay-as-you-go services, ready-to-use solutions, and an open-source ecosystem.✨
-1. 🧠 Comprehensive AI capabilities: Incorporates the latest in language, image, audio, and video models from leading AI brands.
-2. 🚀 Advanced application development: We build genuine AI products, not just simple chatbots.
-3. 💰 No monthly fees: All features are pay-per-use, fully accessible, ensuring low entry barriers with high potential.
-4. 🛠 Powerful admin dashboard: Designed for teams and SMEs - managed by one, used by many.
-5. 🔗 API access for all AI features: All tools are open-source and customizable (in progress).
-6. 💡 Powerful development team: Launching 2-3 new applications weekly with daily product updates. Interested developers are welcome to contact us.

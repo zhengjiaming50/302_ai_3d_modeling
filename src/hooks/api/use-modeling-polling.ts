@@ -100,32 +100,6 @@ export function useModelingPolling<T>({
     }
   };
 
-  // 保存图片到数据库
-  const saveImageToDatabase = async (imageUrl: string) => {
-    try {
-      const fileName = `image-${Date.now()}.png`;
-      
-      const response = await fetch('/api/images', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fileName,
-          fileUrl: imageUrl,
-          mimeType: 'image/png',
-        }),
-      });
-
-      const result = await response.json();
-      logger.info('Image saved to database:', result);
-      return result.id;
-    } catch (error) {
-      logger.error('Failed to save image to database:', error);
-      throw error;
-    }
-  };
-
   const fetcher = async (apiUrl: string, taskId: string) => {
     if (currentModeling.attempt >= MAX_POLLING_ATTEMPTS) {
       logger.error(EXCEEDED_MAX_POLLING_ATTEMPTS_ERROR);
@@ -164,17 +138,20 @@ export function useModelingPolling<T>({
           const modelUrl = await config.getModelUrl(data);
           const textures = hasTextures ? config.getTextureUrl!(data) : [];
           
-          // 保存到数据库
-          let imageId;
+          // 保存到数据库 - 只保存模型，图片已经存在
           let modelId;
           try {
-            // 保存图片
-            imageId = await saveImageToDatabase(currentModeling.modelingSettings.imageSrc);
-            // 保存模型
-            modelId = await saveModelToDatabase(modelUrl, imageId, currentModeling.modelingSettings);
-            logger.info('Saved model and image to database, modelId:', modelId);
+            // 使用表单中已有的imageId，不再重复保存图片
+            const imageId = currentModeling.modelingSettings.imageId;
+            if (imageId) {
+              // 保存模型并关联到已有图片
+              modelId = await saveModelToDatabase(modelUrl, imageId, currentModeling.modelingSettings);
+              logger.info('Saved model to database, modelId:', modelId);
+            } else {
+              logger.warn('No imageId provided, model will not be associated with any image');
+            }
           } catch (dbError) {
-            logger.error('Error saving to database:', dbError);
+            logger.error('Error saving model to database:', dbError);
             // 即使数据库保存失败，也继续处理模型
           }
           
