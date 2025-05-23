@@ -2,11 +2,12 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createScopedLogger } from "@/utils/logger";
 import { useUnifiedFileUpload } from "@/hooks/global/use-unified-file-upload";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { Loader2, ImageUp } from "lucide-react";
 import { cn, convertToPng } from "@/lib/utils";
 import { useMonitorMessage } from "@/hooks/global/use-monitor-message";
@@ -261,7 +262,7 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
                 <Loader2 className="size-8 animate-spin text-primary" />
               ) : (
                 <div
-                  className="relative flex h-full w-full items-center justify-center"
+                  className="relative flex h-full w-full flex-col items-center justify-center"
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
                 >
@@ -271,14 +272,17 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
                       <span className="text-center">{t("placeholder_1")}</span>
                     </div>
                   </div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="absolute inset-0 cursor-pointer opacity-0"
-                    title=""
-                    multiple={false}
-                  />
+                  
+                  <div className="absolute inset-0">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="h-full w-full cursor-pointer opacity-0"
+                      title=""
+                      multiple={false}
+                    />
+                  </div>
                 </div>
               )}
             </>

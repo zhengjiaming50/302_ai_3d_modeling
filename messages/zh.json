@@ -136,12 +136,43 @@
           "error": {
             "file_too_large": "上传的图片文件过大",
             "invalid_file_type": "上传的文件类型错误，不支持当前类型文件",
-            "upload_failed": "上传失败，请稍后再试"
+            "upload_failed": "上传失败，请稍后再试",
+            "camera_access_failed": "无法访问摄像头，请检查权限设置",
+            "photo_capture_failed": "拍照失败，请重试"
           },
           "label": "上传图片",
           "placeholder_1": "点击上传一张图片（支持.png、.jpeg、.webq、.svg等图片格式）",
           "placeholder_2": "或在下方输入框输入您想要的物体描述，",
-          "placeholder_3": "直接生成一张适合3D建模的图片！"
+          "placeholder_3": "直接生成一张适合3D建模的图片！",
+          "camera": {
+            "start": "使用摄像头",
+            "stop": "停止",
+            "take_photo": "拍照"
+          }
+        },
+        "camera_capture_tab": {
+          "label": "摄像头拍照"
+        },
+        "camera_capture": {
+          "initializing": "正在初始化摄像头...",
+          "take_photo": "拍照",
+          "capturing": "正在拍照...",
+          "retake_photo": "重新拍照",
+          "use_for_modeling": "用于建模",
+          "download_status": {
+            "error": "下载失败",
+            "loading": "下载中...",
+            "success": "下载完成"
+          },
+          "error": {
+            "camera_access_failed": "无法访问摄像头，请检查权限设置",
+            "photo_capture_failed": "拍照失败，请重试",
+            "save_failed": "保存图片失败"
+          },
+          "success": {
+            "photo_captured": "拍照成功",
+            "photo_selected": "已选择此照片用于建模"
+          }
         },
         "model_generation_tab": {
           "label": "图片生成"
