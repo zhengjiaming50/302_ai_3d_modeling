@@ -26,7 +26,7 @@ export function init() {
       connectionLimit: 10,
       queueLimit: 0
     });
-    console.log('MySQL connection pool created');
+    // console.log('MySQL connection pool created');
   } catch (error) {
     console.error('Error creating MySQL connection pool:', error);
     throw error;

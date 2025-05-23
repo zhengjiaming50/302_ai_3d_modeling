@@ -29,14 +29,14 @@ export async function initializeDatabase() {
   try {
     // 创建数据库连接
     connection = await mysql.createConnection(dbConfig);
-    console.log('Connected to MySQL server.');
+    // console.log('Connected to MySQL server.');
     
     // 读取SQL脚本文件
     const sqlScript = await readSqlFile('sql/schema.sql');
     
     // 执行SQL脚本
     await connection.query(sqlScript);
-    console.log('Database schema created successfully.');
+    // console.log('Database schema created successfully.');
     
   } catch (error) {
     console.error('Error initializing database:', error);
@@ -55,7 +55,7 @@ export function generateId(): string {
 if (isServer && require.main === module) {
   initializeDatabase()
     .then(() => {
-      console.log('Database initialization completed.');
+      // console.log('Database initialization completed.');
       process.exit(0);
     })
     .catch(error => {

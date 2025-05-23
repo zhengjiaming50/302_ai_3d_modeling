@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
         data.fileName,
         "image"
       );
-      console.log(`Image file saved locally: ${localFilePath}`);
+      // console.log(`Image file saved locally: ${localFilePath}`);
     } catch (fileError) {
       console.error("Failed to save image file locally:", fileError);
       // 继续创建记录，但不包含本地文件路径
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     // 触发AI标注处理（异步，不阻塞响应）
     try {
       await triggerImageAnnotation(image.id, image.fileUrl);
-      console.log(`AI annotation triggered for image ${image.id}`);
+      // console.log(`AI annotation triggered for image ${image.id}`);
     } catch (annotationError) {
       console.error(`Failed to trigger annotation for image ${image.id}:`, annotationError);
       // 不影响主流程，继续返回成功响应

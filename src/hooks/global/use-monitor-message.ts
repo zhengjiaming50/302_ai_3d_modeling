@@ -12,7 +12,7 @@ interface MonitorMessage {
 export const useMonitorMessage = () => {
   const sendMonitorMessage = useCallback(
     (message: Omit<MonitorMessage, "from">) => {
-      console.log("sendMonitorMessage", message);
+      // console.log("sendMonitorMessage", message);
       window.parent.postMessage(
         {
           from: "monitor",

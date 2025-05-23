@@ -33,13 +33,13 @@ export async function POST(request: NextRequest) {
     const { imageId, imageUrl } = data;
 
     // 1. 使用SiliconFlow分析上传的图片
-    console.log("分析上传的图片...");
+    // console.log("分析上传的图片...");
     let uploadedImageDescription: string;
     
     try {
       const analysisResult = await analyzeImageWithSiliconFlow(imageUrl);
       uploadedImageDescription = analysisResult.description;
-      console.log("图片分析完成:", uploadedImageDescription);
+      // console.log("图片分析完成:", uploadedImageDescription);
     } catch (error) {
       console.error("图片分析失败:", error);
       return NextResponse.json(
@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 2. 获取数据库中所有图片的ID和描述信息
-    console.log("获取数据库中的图片信息...");
+    // console.log("获取数据库中的图片信息...");
     
     const existingImages = await query<Array<{
       imageId: string;
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
       [imageId]
     );
 
-    console.log(`找到 ${existingImages.length} 张已标注的图片`);
+    // console.log(`找到 ${existingImages.length} 张已标注的图片`);
 
     if (existingImages.length === 0) {
       return NextResponse.json({
@@ -107,7 +107,7 @@ ${existingImages.map((img, index) => `${index + 1}. ID: ${img.imageId}, 描述: 
 分析结果：`;
 
     // 4. 调用SiliconFlow进行相似度分析
-    console.log("进行相似度分析...");
+    // console.log("进行相似度分析...");
     
     let similarityResults: Array<{ imageId: string; score: number }> = [];
     
@@ -150,7 +150,7 @@ ${existingImages.map((img, index) => `${index + 1}. ID: ${img.imageId}, 描述: 
       const aiResponse = await response.json();
       const analysisText = aiResponse.choices[0]?.message?.content || "";
       
-      console.log("AI分析结果:", analysisText);
+      // console.log("AI分析结果:", analysisText);
       
       // 解析AI返回的结果
       const lines = analysisText.trim().split('\n');
@@ -168,12 +168,12 @@ ${existingImages.map((img, index) => `${index + 1}. ID: ${img.imageId}, 描述: 
       // 按相似度排序
       similarityResults.sort((a, b) => b.score - a.score);
       
-      console.log("解析的相似度结果:", similarityResults);
+      // console.log("解析的相似度结果:", similarityResults);
       
     } catch (error) {
       console.error("相似度分析失败:", error);
       // 如果AI分析失败，使用基本的文本匹配作为备选方案
-      console.log("使用备选方案进行相似度计算...");
+      // console.log("使用备选方案进行相似度计算...");
       
       for (const img of existingImages) {
         const score = calculateBasicSimilarity(uploadedImageDescription, img.description);
@@ -193,14 +193,14 @@ ${existingImages.map((img, index) => `${index + 1}. ID: ${img.imageId}, 描述: 
         // 获取模型信息
         const model = await ModelModel.findByImageId(result.imageId);
         if (!model) {
-          console.log(`图片 ${result.imageId} 没有对应的3D模型`);
+          // console.log(`图片 ${result.imageId} 没有对应的3D模型`);
           continue;
         }
 
         // 获取原始图片信息
         const originalImage = await ImageModel.findById(result.imageId);
         if (!originalImage) {
-          console.log(`找不到图片 ${result.imageId}`);
+          // console.log(`找不到图片 ${result.imageId}`);
           continue;
         }
 
@@ -236,7 +236,7 @@ ${existingImages.map((img, index) => `${index + 1}. ID: ${img.imageId}, 描述: 
       }
     }
 
-    console.log(`找到 ${similarModels.length} 个相似模型`);
+    // console.log(`找到 ${similarModels.length} 个相似模型`);
 
     return NextResponse.json({
       similarModels,

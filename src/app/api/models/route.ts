@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     let localFilePath: string | undefined = undefined;
     try {
       localFilePath = await saveFileFromUrl(data.fileUrl, data.fileName);
-      console.log(`Model file saved locally: ${localFilePath}`);
+      // console.log(`Model file saved locally: ${localFilePath}`);
     } catch (fileError) {
       console.error('Failed to save model file locally:', fileError);
       // 继续创建记录，但不包含本地文件路径

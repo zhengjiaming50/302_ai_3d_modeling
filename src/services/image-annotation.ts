@@ -19,12 +19,12 @@ export async function createImageAnnotation(
   error?: string;
 }> {
   try {
-    console.log(`Starting image annotation for image ${imageId}...`);
+    // console.log(`Starting image annotation for image ${imageId}...`);
     
     // 调用SiliconFlow AI分析图片
     const annotation = await analyzeImageWithSiliconFlow(imageUrl, customPrompt);
     
-    console.log(`AI analysis completed for image ${imageId}:`, annotation);
+    // console.log(`AI analysis completed for image ${imageId}:`, annotation);
     
     // 存储标签到数据库（直接创建新标签，不查找已存在的）
     const tagIds: string[] = [];
@@ -49,7 +49,7 @@ export async function createImageAnnotation(
         annotation.confidence
       );
       
-      console.log(`Feature description created and associated with image ${imageId}`);
+      // console.log(`Feature description created and associated with image ${imageId}`);
     } catch (tagError) {
       console.error(`Error processing feature description:`, tagError);
     }
@@ -89,7 +89,7 @@ export async function triggerImageAnnotation(
     setImmediate(async () => {
       try {
         await createImageAnnotation(imageId, imageUrl);
-        console.log(`Image annotation completed for ${imageId}`);
+        // console.log(`Image annotation completed for ${imageId}`);
       } catch (error) {
         console.error(`Background annotation failed for ${imageId}:`, error);
       }
