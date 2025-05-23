@@ -25,7 +25,7 @@ export default function Home() {
 
   const [step, setStep] = useState<"1" | "2">("1");
   const [currentImageTab, setCurrentImageTab] = useState<
-    "imageSetting" | "imageGeneration"
+    "imageSetting" | "imageGeneration" | "cameraCapture"
   >("imageSetting");
 
   const disableButton =
@@ -37,19 +37,19 @@ export default function Home() {
   if (isSupportWindowSize) {
     return (
       <div className="m-auto flex min-h-[calc(100vh-6rem)] items-center justify-center">
-        <div className="flex flex-col items-center justify-center gap-2 text-muted-foreground">
-          <Ban className="h-4 w-4" />
-          <span className="text-sm">{t("label.unsupportedWindowSize")}</span>
+        <div className="flex flex-col items-center justify-center gap-2 text-muted-foreground card-cyberpunk cyberpunk-pulse p-6 rounded-lg">
+          <Ban className="h-8 w-8 text-cyber-cyan animate-flicker" />
+          <span className="text-sm cyberpunk-text-glow">{t("label.unsupportedWindowSize")}</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="container relative mx-auto mt-10 flex min-h-[calc(100vh-6rem)] max-w-[1280px] flex-col items-center gap-4 rounded-lg border bg-background p-4 shadow-sm">
+    <div className="container relative mx-auto mt-10 flex min-h-[calc(100vh-6rem)] max-w-[1280px] flex-col items-center gap-4 rounded-lg card-cyberpunk cyberpunk-bg p-4 shadow-cyber-lg cyberpunk-scan">
       <HomeHeader />
       <div className="mb-4 w-full text-center">
-        <h2 className="mb-2 text-xl font-bold">
+        <h2 className="mb-2 text-xl font-bold cyberpunk-text-glow animate-float">
           {globalT("navigation.portrait")}
         </h2>
         <p className="mx-auto max-w-3xl text-muted-foreground">
@@ -57,12 +57,16 @@ export default function Home() {
         </p>
       </div>
       {!isMobile ? (
-        <div className="-mx-4 flex h-full w-full flex-row divide-x">
+        <div className="-mx-4 flex h-full w-full flex-row divide-x divide-border">
           <div className="h-full w-1/2 pr-4">
-            <ImageSettingPanel />
+            <div className="card-cyberpunk rounded-lg p-2 h-full">
+              <ImageSettingPanel />
+            </div>
           </div>
           <div className="h-full w-1/2 pl-4">
-            <ModelGenerationPanel />
+            <div className="card-cyberpunk rounded-lg p-2 h-full">
+              <ModelGenerationPanel />
+            </div>
           </div>
         </div>
       ) : (
@@ -70,13 +74,20 @@ export default function Home() {
           <Step currentStep={step} />
 
           {step === "1" ? (
-            <ImageSettingPanel onTabChange={setCurrentImageTab} />
+            <div className="card-cyberpunk rounded-lg p-4">
+              <ImageSettingPanel onTabChange={setCurrentImageTab} />
+            </div>
           ) : (
-            <ModelGenerationPanel />
+            <div className="card-cyberpunk rounded-lg p-4">
+              <ModelGenerationPanel />
+            </div>
           )}
 
           <Button
-            className={cn(step === "1" ? "self-end" : "self-start")}
+            className={cn(
+              step === "1" ? "self-end" : "self-start",
+              "btn-cyberpunk hover:shadow-cyber-xl transition-all duration-300"
+            )}
             variant={step === "1" ? "default" : "outline"}
             onClick={() => setStep(step === "1" ? "2" : "1")}
             disabled={disableButton}
@@ -84,11 +95,11 @@ export default function Home() {
             {step === "1" ? (
               <>
                 {t("label.next")}
-                <ArrowRightToLine className="size-4" />
+                <ArrowRightToLine className="size-4 ml-2 animate-pulse" />
               </>
             ) : (
               <>
-                <ArrowLeftToLine className="size-4" />
+                <ArrowLeftToLine className="size-4 mr-2 animate-pulse" />
                 {t("label.previous")}
               </>
             )}

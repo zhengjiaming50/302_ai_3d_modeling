@@ -19,14 +19,14 @@ const Header = forwardRef<HTMLDivElement, HeaderProps>(({ className }, ref) => {
   return (
     <header
       className={cn(
-        "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 cyberpunk-scan",
         className
       )}
     >
       <div
         ref={ref}
         className={cn(
-          "fixed right-0 top-0 z-50 flex items-center justify-end gap-2 p-2",
+          "fixed right-0 top-0 z-50 flex items-center justify-end gap-2 p-2 cyberpunk-glow rounded-bl-lg",
           className
         )}
       >

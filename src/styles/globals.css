@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Courier New', 'Monaco', 'Menlo', monospace;
 }
 
 @layer utilities {
@@ -13,64 +13,66 @@ body {
 }
 
 /*
-  Custom Shadcn UI theme for 302 AI
+  Cyberpunk Theme for 302 AI - Enhanced with glowing effects and neon colors
 */
 @layer base {
   :root {
-    --page-background: 0 0% 98%;
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    --primary: 262.1 83.3% 57.8%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262.1 83.3% 57.8%;
-    --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    /* Cyberpunk Light Theme */
+    --page-background: 240 10% 8%;
+    --background: 240 12% 10%;
+    --foreground: 180 100% 90%;
+    --card: 240 15% 12%;
+    --card-foreground: 180 100% 85%;
+    --popover: 240 15% 12%;
+    --popover-foreground: 180 100% 85%;
+    --primary: 180 100% 50%;
+    --primary-foreground: 240 20% 10%;
+    --secondary: 300 100% 50%;
+    --secondary-foreground: 240 20% 10%;
+    --muted: 240 20% 15%;
+    --muted-foreground: 180 50% 60%;
+    --accent: 60 100% 50%;
+    --accent-foreground: 240 20% 10%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 180 50% 25%;
+    --input: 240 20% 15%;
+    --ring: 180 100% 50%;
+    --radius: 0.25rem;
+    --chart-1: 180 100% 50%;
+    --chart-2: 300 100% 50%;
+    --chart-3: 60 100% 50%;
+    --chart-4: 0 100% 50%;
+    --chart-5: 270 100% 50%;
   }
 
   .dark {
-    --page-background: 224 71.4% 4.1%;
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 263.4 70% 50.4%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-    --ring: 263.4 70% 50.4%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    /* Cyberpunk Dark Theme */
+    --page-background: 240 100% 3%;
+    --background: 240 100% 5%;
+    --foreground: 180 100% 95%;
+    --card: 240 50% 8%;
+    --card-foreground: 180 100% 90%;
+    --popover: 240 50% 8%;
+    --popover-foreground: 180 100% 90%;
+    --primary: 180 100% 60%;
+    --primary-foreground: 240 100% 5%;
+    --secondary: 300 100% 60%;
+    --secondary-foreground: 240 100% 5%;
+    --muted: 240 30% 12%;
+    --muted-foreground: 180 30% 70%;
+    --accent: 60 100% 60%;
+    --accent-foreground: 240 100% 5%;
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 180 80% 20%;
+    --input: 240 30% 12%;
+    --ring: 180 100% 60%;
+    --chart-1: 180 100% 60%;
+    --chart-2: 300 100% 60%;
+    --chart-3: 60 100% 60%;
+    --chart-4: 0 100% 60%;
+    --chart-5: 270 100% 60%;
   }
 }
 
@@ -80,5 +82,182 @@ body {
   }
   body {
     @apply h-fit min-h-screen bg-pageBackground text-foreground dark:bg-background;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(255, 255, 0, 0.05) 0%, transparent 50%);
+  }
+}
+
+/* Cyberpunk Glowing Effects */
+@layer components {
+  .cyberpunk-glow {
+    box-shadow: 
+      0 0 5px rgba(0, 255, 255, 0.5),
+      0 0 10px rgba(0, 255, 255, 0.3),
+      0 0 20px rgba(0, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+  }
+  
+  .cyberpunk-glow:hover {
+    box-shadow: 
+      0 0 10px rgba(0, 255, 255, 0.8),
+      0 0 20px rgba(0, 255, 255, 0.5),
+      0 0 30px rgba(0, 255, 255, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.8);
+  }
+  
+  .cyberpunk-text-glow {
+    text-shadow: 
+      0 0 5px rgba(0, 255, 255, 0.8),
+      0 0 10px rgba(0, 255, 255, 0.5),
+      0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  
+  .cyberpunk-border {
+    border-image: linear-gradient(45deg, 
+      rgba(0, 255, 255, 0.8) 0%, 
+      rgba(255, 0, 255, 0.8) 50%, 
+      rgba(255, 255, 0, 0.8) 100%) 1;
+    border-width: 2px;
+    border-style: solid;
+  }
+  
+  .cyberpunk-bg {
+    background: linear-gradient(135deg, 
+      rgba(0, 255, 255, 0.1) 0%, 
+      rgba(255, 0, 255, 0.1) 50%, 
+      rgba(255, 255, 0, 0.1) 100%);
+  }
+  
+  .cyberpunk-scan {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cyberpunk-scan::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(0, 255, 255, 0.8), 
+      transparent);
+    animation: scan 3s infinite;
+  }
+  
+  @keyframes scan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  .cyberpunk-pulse {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes pulse-glow {
+    from {
+      box-shadow: 
+        0 0 5px rgba(0, 255, 255, 0.3),
+        0 0 10px rgba(0, 255, 255, 0.2),
+        0 0 20px rgba(0, 255, 255, 0.1);
+    }
+    to {
+      box-shadow: 
+        0 0 10px rgba(0, 255, 255, 0.8),
+        0 0 20px rgba(0, 255, 255, 0.5),
+        0 0 30px rgba(0, 255, 255, 0.3);
+    }
+  }
+
+  /* Enhanced Button Styles */
+  .btn-cyberpunk {
+    @apply relative overflow-hidden transition-all duration-300;
+    background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    box-shadow: 
+      0 0 10px rgba(0, 255, 255, 0.3),
+      inset 0 0 10px rgba(0, 255, 255, 0.1);
+  }
+  
+  .btn-cyberpunk:hover {
+    background: linear-gradient(45deg, rgba(0, 255, 255, 0.2), rgba(255, 0, 255, 0.2));
+    border: 1px solid rgba(0, 255, 255, 0.8);
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.6),
+      inset 0 0 20px rgba(0, 255, 255, 0.2);
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+  }
+  
+  .btn-cyberpunk::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.2), 
+      transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-cyberpunk:hover::before {
+    left: 100%;
+  }
+
+  /* Enhanced Input Styles */
+  .input-cyberpunk {
+    @apply bg-background border-2 transition-all duration-300;
+    border-color: rgba(0, 255, 255, 0.3);
+    box-shadow: 
+      0 0 5px rgba(0, 255, 255, 0.2),
+      inset 0 0 5px rgba(0, 255, 255, 0.1);
+  }
+  
+  .input-cyberpunk:focus {
+    border-color: rgba(0, 255, 255, 0.8);
+    box-shadow: 
+      0 0 15px rgba(0, 255, 255, 0.5),
+      inset 0 0 15px rgba(0, 255, 255, 0.2);
+    outline: none;
+  }
+
+  /* Card Enhancements */
+  .card-cyberpunk {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, 
+      rgba(0, 255, 255, 0.05) 0%, 
+      rgba(255, 0, 255, 0.05) 50%, 
+      rgba(255, 255, 0, 0.05) 100%);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.1),
+      inset 0 0 20px rgba(0, 255, 255, 0.05);
+  }
+  
+  .card-cyberpunk::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+      rgba(0, 255, 255, 0.5) 0%, 
+      rgba(255, 0, 255, 0.5) 50%, 
+      rgba(255, 255, 0, 0.5) 100%);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+  }
+  
+  .card-cyberpunk:hover::before {
+    opacity: 0.3;
   }
 }
