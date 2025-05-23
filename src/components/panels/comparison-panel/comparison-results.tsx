@@ -4,8 +4,7 @@ import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Loader2, Target, Download, Eye, Image as ImageIcon } from "lucide-react";
-import { useState } from "react";
+import { Loader2, Target, Download } from "lucide-react";
 import { ModelPreview } from "./model-preview";
 import { SupportedFileTypes } from "@/stores/slices/model_viewer_store";
 
@@ -36,11 +35,6 @@ export function ComparisonResults({
   uploadedImageUrl,
 }: ComparisonResultsProps) {
   const t = useTranslations("comparison");
-  const [selectedModel, setSelectedModel] = useState<SimilarModel | null>(null);
-
-  const handleModelSelect = (model: SimilarModel) => {
-    setSelectedModel(model);
-  };
 
   const handleDownloadModel = (model: SimilarModel) => {
     const downloadUrl = model.localFilePath 
@@ -126,12 +120,7 @@ export function ComparisonResults({
               {similarModels.map((model, index) => (
                 <Card
                   key={model.id}
-                  className={`cursor-pointer transition-all hover:shadow-md ${
-                    selectedModel?.id === model.id
-                      ? "ring-2 ring-primary"
-                      : ""
-                  }`}
-                  onClick={() => handleModelSelect(model)}
+                  className="transition-all hover:shadow-md"
                 >
                   <CardContent className="p-4">
                     <div className="space-y-3">
@@ -164,122 +153,21 @@ export function ComparisonResults({
                         </p>
                       </div>
 
-                      {/* 操作按钮 */}
-                      <div className="flex gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="flex-1"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleDownloadModel(model);
-                          }}
-                        >
-                          <Download className="h-3 w-3 mr-1" />
-                          {t("download")}
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleModelSelect(model);
-                          }}
-                        >
-                          <Eye className="h-3 w-3" />
-                        </Button>
-                      </div>
+                      {/* 下载按钮 */}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full"
+                        onClick={() => handleDownloadModel(model)}
+                      >
+                        <Download className="h-3 w-3 mr-1" />
+                        {t("download")}
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
-
-            {/* 详细信息面板 */}
-            {selectedModel && (
-              <Card className="mt-6">
-                <CardHeader>
-                  <CardTitle className="text-lg">{t("modelDetails")}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {/* 原始图片对比 */}
-                    <div className="space-y-3">
-                      <h4 className="font-semibold">{t("originalImages")}</h4>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-sm text-muted-foreground mb-2">
-                            {t("uploadedImage")}
-                          </p>
-                          <img
-                            src={uploadedImageUrl}
-                            alt="上传的图片"
-                            className="w-full h-32 object-cover rounded border"
-                          />
-                        </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground mb-2">
-                            {t("matchedImage")}
-                          </p>
-                          <img
-                            src={
-                              selectedModel.originalImage.localFilePath
-                                ? `/images/${selectedModel.originalImage.localFilePath.split('/').pop()}`
-                                : selectedModel.originalImage.fileUrl
-                            }
-                            alt={selectedModel.originalImage.fileName}
-                            className="w-full h-32 object-cover rounded border"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 3D模型详情 */}
-                    <div className="space-y-3">
-                      <h4 className="font-semibold">{t("modelInfo")}</h4>
-                      
-                      {/* 大尺寸3D模型预览 */}
-                      <div className="mb-4">
-                        <ModelPreview
-                          modelUrl={selectedModel.localFilePath 
-                            ? `/models/${selectedModel.localFilePath.split('/').pop()}` 
-                            : selectedModel.fileUrl}
-                          fileType={getFileType(selectedModel.fileName)}
-                          height="h-64"
-                          className="w-full"
-                        />
-                      </div>
-
-                      {/* 模型详细信息 */}
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">{t("fileName")}:</span>
-                          <span>{selectedModel.fileName}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">{t("similarity")}:</span>
-                          <Badge className={`text-white ${getSimilarityColor(selectedModel.similarityScore)}`}>
-                            {selectedModel.similarityScore}%
-                          </Badge>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">{t("modelId")}:</span>
-                          <span className="font-mono text-xs">{selectedModel.id}</span>
-                        </div>
-                      </div>
-
-                      <Button
-                        className="w-full mt-4"
-                        onClick={() => handleDownloadModel(selectedModel)}
-                      >
-                        <Download className="h-4 w-4 mr-2" />
-                        {t("downloadModel")}
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
         )}
       </CardContent>
