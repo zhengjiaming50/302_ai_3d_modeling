@@ -43,6 +43,11 @@
           "label": "ツール情報ポップアップを開く/閉じる"
         }
       }
+    },
+    "navigation": {
+      "portrait": "ポートレートモデリング",
+      "environment": "環境分析",
+      "comparison": "モデル比較"
     }
   },
   "home": {
@@ -204,5 +209,29 @@
       "image_setting": "画像設定",
       "model_generation": "モデル生成"
     }
+  },
+  "comparison": {
+    "title": "3Dモデル比較分析",
+    "description": "画像をアップロードすると、システムがAI分析を使用してデータベース内で最も類似した3Dモデルを見つけ、関連するモデリング結果をすばやく見つけるのに役立ちます。",
+    "label": {
+      "unsupportedWindowSize": "このアプリケーションは、現在の解像度をサポートしていません"
+    },
+    "uploadTitle": "画像アップロード",
+    "searchSimilar": "類似モデル検索",
+    "searching": "検索中...",
+    "resultsTitle": "検索結果",
+    "searchingText": "画像を分析し、類似モデルを検索しています。お待ちください...",
+    "noResults": "類似モデルが見つかりませんでした。異なる画像をアップロードしてみてください",
+    "foundResults": "{count}個の類似モデルが見つかりました",
+    "download": "ダウンロード",
+    "modelDetails": "モデル詳細",
+    "originalImages": "元画像比較",
+    "uploadedImage": "アップロード画像",
+    "matchedImage": "マッチング画像",
+    "modelInfo": "モデル情報",
+    "fileName": "ファイル名",
+    "similarity": "類似度",
+    "modelId": "モデルID",
+    "downloadModel": "モデルダウンロード"
   }
 }

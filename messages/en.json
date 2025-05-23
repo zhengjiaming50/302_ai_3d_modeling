@@ -43,6 +43,11 @@
           "label": "Open/Close Tool Information Popup"
         }
       }
+    },
+    "navigation": {
+      "portrait": "Portrait Modeling",
+      "environment": "Environment Analysis",
+      "comparison": "Model Comparison"
     }
   },
   "home": {
@@ -204,5 +209,29 @@
       "image_setting": "Image Setting",
       "model_generation": "Model Generation"
     }
+  },
+  "comparison": {
+    "title": "3D Model Comparison Analysis",
+    "description": "Upload an image and the system will use AI analysis to find the most similar 3D models in the database, helping you quickly find related modeling results.",
+    "label": {
+      "unsupportedWindowSize": "This application does not support the current resolution"
+    },
+    "uploadTitle": "Upload Image",
+    "searchSimilar": "Search Similar Models",
+    "searching": "Searching...",
+    "resultsTitle": "Search Results",
+    "searchingText": "Analyzing image and searching for similar models, please wait...",
+    "noResults": "No similar models found, please try uploading different images",
+    "foundResults": "Found {count} similar models",
+    "download": "Download",
+    "modelDetails": "Model Details",
+    "originalImages": "Original Image Comparison",
+    "uploadedImage": "Uploaded Image",
+    "matchedImage": "Matched Image",
+    "modelInfo": "Model Information",
+    "fileName": "File Name",
+    "similarity": "Similarity",
+    "modelId": "Model ID",
+    "downloadModel": "Download Model"
   }
 }

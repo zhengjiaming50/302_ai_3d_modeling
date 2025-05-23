@@ -15,6 +15,7 @@ export default function HomeHeader() {
 
   const isHome = pathname === "/" || pathname.endsWith("/page");
   const isEnvironment = pathname.includes("/environment");
+  const isComparison = pathname.includes("/comparison");
 
   return (
     <div className="w-full">
@@ -42,6 +43,17 @@ export default function HomeHeader() {
           )}
         >
           {globalT("navigation.environment")}
+        </Link>
+        <Link
+          href={`/${locale}/comparison`}
+          className={cn(
+            "rounded-md px-4 py-2 transition-colors",
+            isComparison
+              ? "bg-primary text-primary-foreground"
+              : "hover:bg-muted"
+          )}
+        >
+          {globalT("navigation.comparison")}
         </Link>
       </div>
       <div className="mb-2 w-full text-center">

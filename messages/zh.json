@@ -46,7 +46,8 @@
     },
     "navigation": {
       "portrait": "人像建模",
-      "environment": "环境分析建模"
+      "environment": "环境分析建模",
+      "comparison": "对比分析"
     }
   },
   "home": {
@@ -242,5 +243,29 @@
       "image_setting": "设置图片",
       "model_generation": "模型生成"
     }
+  },
+  "comparison": {
+    "title": "3D模型对比分析",
+    "description": "上传图片，系统将使用AI分析找到数据库中最相似的3D模型，帮助您快速找到相关的建模结果。",
+    "label": {
+      "unsupportedWindowSize": "该应用不支持当前的分辨率"
+    },
+    "uploadTitle": "上传图片",
+    "searchSimilar": "搜索相似模型",
+    "searching": "正在搜索...",
+    "resultsTitle": "搜索结果",
+    "searchingText": "正在分析图片并搜索相似模型，请稍候...",
+    "noResults": "未找到相似的模型，请尝试上传其他图片",
+    "foundResults": "找到 {count} 个相似模型",
+    "download": "下载",
+    "modelDetails": "模型详情",
+    "originalImages": "原始图片对比",
+    "uploadedImage": "上传的图片",
+    "matchedImage": "匹配的图片",
+    "modelInfo": "模型信息",
+    "fileName": "文件名",
+    "similarity": "相似度",
+    "modelId": "模型ID",
+    "downloadModel": "下载模型"
   }
 }
