@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ModelModel, ImageModel } from '@/models';
+import { ModelModel } from '@/models';
 import { saveFileFromUrl } from '@/lib/file-storage';
 
 export async function POST(request: NextRequest) {
@@ -39,14 +39,6 @@ export async function POST(request: NextRequest) {
       parameters: data.parameters,
       imageId: data.imageId || ''
     });
-
-    // 如果有关联图片，异步触发AI标注（确保图片有AI描述用于后续对比）
-    if (data.imageId) {
-      triggerImageAITagging(data.imageId).catch(error => {
-        console.error('Background AI tagging for model image failed:', error);
-        // 不影响主要响应
-      });
-    }
     
     return NextResponse.json({ 
       id: model.id, 
@@ -102,43 +94,5 @@ export async function GET(request: NextRequest) {
       { error: 'Failed to fetch model data' },
       { status: 500 }
     );
-  }
-}
-
-/**
- * 异步触发图片AI标注（后台处理）
- */
-async function triggerImageAITagging(imageId: string) {
-  try {
-    console.log(`Triggering AI tagging for model image ${imageId}`);
-    
-    // 获取图片信息
-    const image = await ImageModel.findById(imageId);
-    if (!image) {
-      console.warn(`Image ${imageId} not found for AI tagging`);
-      return;
-    }
-
-    // 调用AI标注API
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/ai-tags`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        imageId: image.id,
-        imageUrl: image.fileUrl
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`AI tagging API returned ${response.status}: ${response.statusText}`);
-    }
-
-    const result = await response.json();
-    console.log(`AI tagging completed for model image ${imageId}:`, result);
-
-  } catch (error) {
-    console.error(`Failed to trigger AI tagging for model image ${imageId}:`, error);
   }
 } 
