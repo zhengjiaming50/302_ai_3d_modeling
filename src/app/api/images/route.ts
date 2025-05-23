@@ -37,6 +37,12 @@ export async function POST(request: NextRequest) {
       size: data.size,
     });
 
+    // 异步触发AI标注（不阻塞主要流程）
+    triggerAITagging(image.id, data.fileUrl).catch(error => {
+      console.error('Background AI tagging failed:', error);
+      // 不影响主要响应
+    });
+
     return NextResponse.json({
       id: image.id,
       localFilePath: image.localFilePath,
@@ -77,5 +83,37 @@ export async function GET(request: NextRequest) {
       { error: "Failed to fetch image data" },
       { status: 500 }
     );
+  }
+}
+
+/**
+ * 异步触发AI标注（后台处理）
+ */
+async function triggerAITagging(imageId: string, imageUrl: string) {
+  try {
+    console.log(`Triggering AI tagging for image ${imageId}`);
+    
+    // 调用AI标注API
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/ai-tags`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        imageId,
+        imageUrl
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`AI tagging API returned ${response.status}: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.log(`AI tagging completed for image ${imageId}:`, result);
+
+  } catch (error) {
+    console.error(`Failed to trigger AI tagging for image ${imageId}:`, error);
+    // 这里可以考虑添加重试机制或将任务加入队列
   }
 }
