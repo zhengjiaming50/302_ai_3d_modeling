@@ -3,18 +3,13 @@ import fs from "fs";
 import path from "path";
 import mysql from "mysql2/promise";
 
-// 创建存储目录
-const storageDir = path.join(__dirname, "storage");
-const modelsDir = path.join(storageDir, "models");
-const imagesDir = path.join(storageDir, "images");
+// 创建存储目录 - 改为public目录
+const publicDir = path.join(__dirname, "public");
+const modelsDir = path.join(publicDir, "models");
+const imagesDir = path.join(publicDir, "images");
 const sqlFilePath = path.join(__dirname, "sql", "schema.sql");
 
 // 确保目录存在
-if (!fs.existsSync(storageDir)) {
-  fs.mkdirSync(storageDir, { recursive: true });
-  console.log("Created storage directory:", storageDir);
-}
-
 if (!fs.existsSync(modelsDir)) {
   fs.mkdirSync(modelsDir, { recursive: true });
   console.log("Created models directory:", modelsDir);
@@ -65,6 +60,7 @@ async function init() {
     console.log("Initializing database...");
     await initializeDatabase();
     console.log("Database initialized successfully!");
+    console.log("Storage directories created in public folder.");
     console.log("The application is now ready to use.");
   } catch (error) {
     console.error("Failed to initialize database:", error);

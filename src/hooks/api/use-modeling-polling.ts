@@ -17,6 +17,7 @@ import {
   SupportedModelingModel,
   updateModelViewerStore,
 } from "@/stores/slices/model_viewer_store";
+import { ModelingFormType } from "@/components/forms/modeling/schema";
 
 const logger = createScopedLogger("useModelingPolling");
 
@@ -63,6 +64,67 @@ export function useModelingPolling<T>({
     taskId !== "" &&
     modelingStatus === CurrentModelingStatus.PENDING;
   const hasTextures = modelingModel === "Hyper3D" && modelingFormat !== "glb";
+  
+  // 保存模型到数据库
+  const saveModelToDatabase = async (modelUrl: string, imageId: string, formData: ModelingFormType) => {
+    try {
+      const fileName = `model-${Date.now()}.${formData.modelingFormat || 'glb'}`;
+      const parametersJson = JSON.stringify({
+        modelingModel: formData.modelingModel,
+        modelingFormat: formData.modelingFormat,
+        modelingQuality: formData.modelingQuality,
+        useHyper: formData.useHyper,
+        modelingTier: formData.modelingTier,
+      });
+
+      const response = await fetch('/api/models', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fileName,
+          fileUrl: modelUrl,
+          format: formData.modelingFormat || 'glb',
+          parameters: parametersJson,
+          imageId,
+        }),
+      });
+
+      const result = await response.json();
+      logger.info('Model saved to database:', result);
+      return result.id;
+    } catch (error) {
+      logger.error('Failed to save model to database:', error);
+      throw error;
+    }
+  };
+
+  // 保存图片到数据库
+  const saveImageToDatabase = async (imageUrl: string) => {
+    try {
+      const fileName = `image-${Date.now()}.png`;
+      
+      const response = await fetch('/api/images', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fileName,
+          fileUrl: imageUrl,
+          mimeType: 'image/png',
+        }),
+      });
+
+      const result = await response.json();
+      logger.info('Image saved to database:', result);
+      return result.id;
+    } catch (error) {
+      logger.error('Failed to save image to database:', error);
+      throw error;
+    }
+  };
 
   const fetcher = async (apiUrl: string, taskId: string) => {
     if (currentModeling.attempt >= MAX_POLLING_ATTEMPTS) {
@@ -99,13 +161,31 @@ export function useModelingPolling<T>({
       onSuccess: async (data: any) => {
         if (config.isSuccess(data)) {
           const createAt = Date.now();
+          const modelUrl = await config.getModelUrl(data);
+          const textures = hasTextures ? config.getTextureUrl!(data) : [];
+          
+          // 保存到数据库
+          let imageId;
+          let modelId;
+          try {
+            // 保存图片
+            imageId = await saveImageToDatabase(currentModeling.modelingSettings.imageSrc);
+            // 保存模型
+            modelId = await saveModelToDatabase(modelUrl, imageId, currentModeling.modelingSettings);
+            logger.info('Saved model and image to database, modelId:', modelId);
+          } catch (dbError) {
+            logger.error('Error saving to database:', dbError);
+            // 即使数据库保存失败，也继续处理模型
+          }
+          
           if (currentModeling.taskId !== "") {
             _addModelingGenerationRecord({
               taskId: currentModeling.taskId,
-              modelUrl: await config.getModelUrl(data),
-              textures: hasTextures ? config.getTextureUrl!(data) : [],
+              modelUrl: modelUrl,
+              textures: textures,
               createAt,
               modelingForm: currentModeling.modelingSettings,
+              modelId, // 添加模型ID
             });
           }
           updateCurrentModeling({
@@ -115,8 +195,8 @@ export function useModelingPolling<T>({
             status: CurrentModelingStatus.SUCCESS,
           });
           updateModelViewer({
-            modelUrl: await config.getModelUrl(data),
-            textures: hasTextures ? config.getTextureUrl!(data) : [],
+            modelUrl: modelUrl,
+            textures: textures,
             fileType: currentModeling.modelingSettings
               .modelingFormat as SupportedFileTypes,
             modelingModel: currentModeling.modelingSettings

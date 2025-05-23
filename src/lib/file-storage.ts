@@ -5,8 +5,8 @@ import { Buffer } from "buffer";
 // 确保只在服务器端运行
 const isServer = typeof window === "undefined";
 
-// 创建存储目录路径
-const STORAGE_DIR = path.join(process.cwd(), "storage");
+// 创建存储目录路径 - 从storage改为public目录
+const STORAGE_DIR = path.join(process.cwd(), "public");
 const MODELS_DIR = path.join(STORAGE_DIR, "models");
 const IMAGES_DIR = path.join(STORAGE_DIR, "images");
 
@@ -15,10 +15,6 @@ const IMAGES_DIR = path.join(STORAGE_DIR, "images");
  */
 export function ensureDirectoriesExist(): void {
   if (!isServer) return;
-
-  if (!fs.existsSync(STORAGE_DIR)) {
-    fs.mkdirSync(STORAGE_DIR, { recursive: true });
-  }
 
   if (!fs.existsSync(MODELS_DIR)) {
     fs.mkdirSync(MODELS_DIR, { recursive: true });
