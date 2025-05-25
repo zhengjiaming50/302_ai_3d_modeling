@@ -19,6 +19,12 @@ import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { Metadata, ResolvingMetadata } from "next/types";
 import { ReactNode } from "react";
+import { StagewiseToolbar } from "@stagewise/toolbar-next";
+
+// Stagewise configuration for development
+const stagewiseConfig = {
+  plugins: []
+};
 
 // SEO metadata
 export async function generateMetadata(
@@ -111,6 +117,10 @@ export default async function RootLayout({
                 <AppClickMonitor />
               </AppClient>
               <AppMessage />
+              {/* Stagewise toolbar - development only */}
+              {process.env.NODE_ENV === 'development' && (
+                <StagewiseToolbar config={stagewiseConfig} />
+              )}
             </NextIntlClientProvider>
           </AppJotai>
         </AppTheme>

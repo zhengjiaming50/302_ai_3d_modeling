@@ -47,6 +47,7 @@
     "@radix-ui/react-tooltip": "^1.1.6",
     "@react-three/drei": "^9.121.4",
     "@react-three/fiber": "^8.17.12",
+    "@stagewise/toolbar-next": "^0.1.2",
     "@t3-oss/env-nextjs": "^0.11.1",
     "@tailwindcss/typography": "^0.5.15",
     "ahooks": "^3.8.4",

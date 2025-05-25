@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImageUploader } from "@/components/forms/image-uploader/image-uploader";
-import { Loader2, Search, Image as ImageIcon } from "lucide-react";
+import { CameraCapture } from "@/components/panels/image-setting-panel/camera-capture";
+import { Loader2, Search, Image as ImageIcon, Upload, Camera } from "lucide-react";
 import { ComparisonResults } from "./comparison-results";
 
 interface SimilarModel {
@@ -30,8 +32,17 @@ export function ComparisonPanel() {
   const [isSearching, setIsSearching] = useState(false);
   const [similarModels, setSimilarModels] = useState<SimilarModel[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [activeTab, setActiveTab] = useState<string>("upload");
 
   const handleImageUpload = (imageUrl: string, imageId?: string) => {
+    setUploadedImageUrl(imageUrl);
+    setUploadedImageId(imageId || "");
+    // 重置搜索状态
+    setSimilarModels([]);
+    setHasSearched(false);
+  };
+
+  const handlePhotoCapture = (imageUrl: string, imageId?: string) => {
     setUploadedImageUrl(imageUrl);
     setUploadedImageId(imageId || "");
     // 重置搜索状态
@@ -72,7 +83,7 @@ export function ComparisonPanel() {
 
   return (
     <div className="space-y-6">
-      {/* 图片上传区域 */}
+      {/* 图片上传/拍照区域 */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -82,7 +93,26 @@ export function ComparisonPanel() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            <ImageUploader onUpload={handleImageUpload} />
+            <Tabs value={activeTab} onValueChange={setActiveTab}>
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="upload" className="flex items-center gap-2">
+                  <Upload className="h-4 w-4" />
+                  {t("uploadTab")}
+                </TabsTrigger>
+                <TabsTrigger value="camera" className="flex items-center gap-2">
+                  <Camera className="h-4 w-4" />
+                  {t("cameraTab")}
+                </TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="upload" className="space-y-4">
+                <ImageUploader onUpload={handleImageUpload} />
+              </TabsContent>
+              
+              <TabsContent value="camera" className="space-y-4">
+                <CameraCapture onPhotoCapture={handlePhotoCapture} />
+              </TabsContent>
+            </Tabs>
             
             {uploadedImageUrl && (
               <div className="flex flex-col items-center gap-4">
